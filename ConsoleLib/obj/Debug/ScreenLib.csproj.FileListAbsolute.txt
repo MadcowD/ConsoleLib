@@ -1,0 +1,5 @@
+C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\bin\Debug\ScreenLib.dll
+C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\bin\Debug\ScreenLib.pdb
+C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\obj\Debug\ScreenLib.dll
+C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\obj\Debug\ScreenLib.pdb

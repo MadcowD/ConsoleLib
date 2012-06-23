@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConsoleLib</name>
+    </assembly>
+    <members>
+        <member name="T:ConsoleLib.UI.Pixel">
+            <summary>
+            Pixel class, the basic of all componets
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.Char,System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Set the initial contents of the Pixel
+            </summary>
+            <param name="Value">The character that this Pixel represents</param>
+            <param name="ForeColor">The forecolor that the pixel will take on.</param>
+            <param name="BackColor">The backcolor that the pixel will take on.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.ConsoleColor)">
+            <summary>
+            A single color pixel with a ' ' char value
+            </summary>
+            <param name="Value"></param>
+            <param name="SingleColor"></param>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor">
+            <summary>
+            Specifies the default Pixel.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.ManagedDraw">
+            <summary>
+            Prints the pixel to the console (NOT EFFICIENT)
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.ToString">
+            <summary>
+            Returns the literal char value of Pixel
+            </summary>
+            <returns>Writes the pixel to the screen</returns>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.BackColor">
+            <summary>
+            Gets or sets the background Value.Attribute of the pixel through a ConsoleColor struct.
+            ConsoleColor is converted into the proper byte form.
+            </summary>
+            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.ForeColor">
+            <summary>
+            Gets or sets the foreground Value.Attribute of the pixel through a ConsoleColor struct.
+            ConsoleColor is converted into the proper byte form.
+            </summary>
+            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.DrawableComponent.CalculateRotation">
+            <summary>
+            Calculates an output buffer of IDrawableUnit
+            based on the DrawableComponent's current rotation.
+            
+            This function uses the formula:
+             * x' = xcos(degrees) - ysin(degrees)
+             * y' = xsin(degrees) + ycos(degrees)
+            to find specific output points on a rotated buffer.
+            
+             1. Rotation occurs in the center,
+             2. Rotated points which are outside of the original
+                buffer's size are clipped.
+             3. The buffer does not scale.
+            </summary>
+            <returns>The function returns a rotated version of
+            DrawableComponent.Contents.</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.DrawableComponent.Scale(System.Int32,System.Int32)">
+            <summary>
+            Scales the current DrawableComponent to a new size
+            whilst maintaing content which should not be clipped.
+            </summary>
+            <param name="newX">The new unsigned width.</param>
+            <param name="newY">The new unsigned height.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.DrawableComponent.Draw(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:],System.Int32,System.Int32)">
+            <summary>
+            Draws the specified component to a IDrawableUnit[,] buffer.
+            </summary>
+            <param name="Buffer">The buffer to which the method will draw.</param>
+            <param name="Height">The height of the buffer to be drawn to.</param>
+            <param name="Width">The width of the buffer to be drawn to.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.DrawEnabled">
+            <summary>
+            Whether or not drawing is enabled.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Transparent">
+            <summary>
+            The transparent property of a 
+            drawable component determines whether
+            or not null IDrawableUnits should be
+            drawn.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Background">
+            <summary>
+            The default background pixel to draw
+            if transparency is off
+            and a null pixel is being drawn.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Foreground">
+            <summary>
+            The default foregound pixel to draw.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Contents">
+            <summary>
+            The contents of the DrawableComponent.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.X">
+            <summary>
+            The X coordinate of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Y">
+            <summary>
+            The Y coordinate of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.SizeX">
+            <summary>
+            The width of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.SizeY">
+            <summary>
+            The height of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Rotation">
+            <summary>
+            The rotation in float degrees of the component.
+            </summary>
+        </member>
+    </members>
+</doc>
