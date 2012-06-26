@@ -7,128 +7,128 @@ using ConsoleLib.UI.Components.Input;
 
 namespace ConsoleLib.UI.Components
 {
+    /// <summary>
+    /// A TextBoxComponent with which text can be displayed to the Screen.
+    /// </summary>
     public class TextBoxComponent : DrawableComponent, IRenderable
     {
 
         public TextBoxComponent(String Name, DrawableComponent drawInfo)
             : base(Name, drawInfo)
         {
-                        _VisibleText = "";
+            _VisibleText = "";
             _Text = "";
-            VisibleLines = SizeX;
-            CurrentLine = 0;
-            DrawStartX = 0;
-            DrawStartY = 0;
-            DrawEndX = SizeX;
-            DrawEndY = SizeY;
+            AutoScroll = false;
         }
 
         #region Functioning Loop
 
 
-        public virtual void Render()
+        public void Render()
         {
             ComponentEditor.Clear(this);
-            ComponentEditor.WriteString(this, _VisibleText,DrawStartX,DrawStartY, DrawEndX, DrawEndY);
+            ComponentEditor.WriteString(this, _VisibleText, 0, 0, SizeX, SizeY);
         }
 
 
         #endregion
 
         #region Variables
+        /// <summary>
+        /// The instantiated variable containing the raw text.
+        /// </summary>
         private string _Text;
+
+        /// <summary>
+        /// The calculated visual text with which will be displayed in the textbox. SEE SCROLL.
+        /// </summary>
         protected string _VisibleText;
         #endregion
 
         #region Properties
 
-        public string Text
+        /// <summary>
+        /// The text containted within the textbox.
+        /// </summary>
+        public string Text //TODO: Possibly add colored text within the textbox.
         {
             get { return _Text; }
             set
             {
                 _Text = value;
-                CalculateVisibleText();
+                Scroll();
             }
         }
 
-        public int VisibleLines { get; set; }
-        public int CurrentLine { get; set; }
-        public int DrawStartX { get; set; }
-        public int DrawStartY { get; set; }
-        public int DrawEndX { get; set; }
-        public int DrawEndY { get; set; }
+        /// <summary>
+        /// The position with which the visible area is determined
+        /// </summary>
+        public int ScrollPosition { get; set; }
+
+        /// <summary>
+        /// If the Scroll Position should be automatically determined at the end of the Text.
+        /// </summary>
+        public bool AutoScroll { get; set; }
 
         #endregion
 
         #region Helpers
 
-        private void CalculateVisibleText() //TODO: REWRITE
+        /// <summary>
+        /// Calculates the visual range that is going to be displayed if the text is larger than the visible area.
+        /// </summary>
+        public void Scroll()
         {
-            lock (Text)
+            //Convert text into a list
+            List<string> textLines = new List<string>();
+
+            int lineCharCount = 0;
+            string line = "";
+            //Loop through it
+            foreach (char currentCharacter in Text)
             {
-                //int visibleLines = -1;
-                //int linesInText = 0;
-                //string outputString = "";
+                line += currentCharacter; //Add the character to the line
+                lineCharCount++; //Increase the count of characters this line
 
-
-                ////Variables for ease of code visibility
-                //int height = DrawEndY - DrawStartY;
-                //int width = DrawEndX - DrawStartX;
-                //int length = height * width;
-
-                //// Loop through all text to calculate text
-                //for (int i = 0; //Iteration is equal to the current line times the width
-                //    i < _Text.Length && //Whilst iteration is less than the length
-                //    i < length && //Whilst iteration is less than the size of the text box
-                //    visibleLines < VisibleLines &&
-                //    linesInText < height+1; i++)
-                //{
-                //    if (linesInText < CurrentLine)
-                //        outputString = "";
-
-                //    if (_Text[i] == '\n')//If there is going to be a new line, increase the visible lines count
-                //    {
-                //        linesInText++;
-                //        if (!(linesInText < CurrentLine))
-                //        visibleLines++;
-                //        outputString += '\n';
-                //    }
-                //    else //If it's just a normal character
-                //    {
-                //        if (i % width == 0){ ///If it's time for a new line
-                //            linesInText++;
-                //            if (!(linesInText < CurrentLine))
-                //                visibleLines++;
-                //        }
-                            
-                //        outputString += _Text[i];
-                //    }
-                //}
-
-
-
-
-                //_VisibleText = outputString;
-
+                if (lineCharCount >= SizeX || currentCharacter == '\n') //If the character marks the start of a new line
+                {
+                    textLines.Add(line); //Add the line to the list of lines
+                    
+                    //Reset the variables
+                    line = "";
+                    lineCharCount = 0;
+                }
 
             }
+            //Add the last line
+            textLines.Add(line);
+
+            //If text is actually larger than the visual area then calculate a scroll
+            if (textLines.Count > SizeY)
+            {
+                //Set the _VisibleText
+                if (AutoScroll) //If AutoScroll
+                    ScrollPosition = textLines.Count - SizeY; // Set it to the end
+
+                //Normalize the ScrollPosition
+                if (ScrollPosition < 0)
+                    ScrollPosition = 0;
+
+                _VisibleText = ""; //Reset the VisibleText
+
+                //Grab the lines withing the ScrollPosition + the visual range
+                for (int i = ScrollPosition; i < textLines.Count && i < ScrollPosition + SizeY; i++)
+                {
+                    _VisibleText += textLines.ElementAt(i);
+                }
+            }
+            else
+                _VisibleText = Text;
+
         }
 
-        
-
-        #region IScalable
-
-        public void Scale(int X, int Y){
 
 
-            DrawEndX += X-SizeX;
-            DrawEndY += Y-SizeY;
-
-            base.Scale(X, Y);
-        }
-
-        #endregion
 
         #endregion
 

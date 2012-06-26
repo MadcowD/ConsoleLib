@@ -12,37 +12,65 @@ namespace ConsoleLib.UI.Components.Textboxes
     {
         public ConsoleComponent(string Name, DrawableComponent drawInfo) :base(Name, drawInfo)
         {
+            //Set up scrolling
+            AutoScroll = true;
+
+            //Set up input delimiters
+            Delimiters = new List<Delimit>();
+            Delimiters.Add(this.Enter);
+            Delimiters.Add(InputComponent.BackspaceAndDelete);
+
+            //Set up input
             _CurrentInput = "";
             Reading = false;
             WantsFocus = true;
 
-            consoleText = new StringBuilder(Text);
+            //Set up the contents of the console
+            ConsoleText = new StringBuilder(Text);
 
-            Out = new StringWriter(consoleText);
+            //Set up read/write streams
+            Out = new StringWriter(ConsoleText);
             In = new StringReader(_CurrentInput);
-            Delimiters = new List<Delimit>();
-
-            Delimiters.Add(this.Enter);
-            Delimiters.Add(InputComponent.BackspaceAndDelete);
         }
 
-        #region Read/Write 
+        #region Write 
+        
+
+        /// <summary>
+        /// Write an object with arguments to the stream. {2}, etc.
+        /// </summary>
+        /// <param name="toWrite">The Object to be written to the stream</param>
+        /// <param name="arg">The arguments for that object</param>
         public void WriteLine(object toWrite, params object[] arg)
         {
-            Out.WriteLine(toWrite as string,arg);
+            Out.WriteLine(Convert.ToString(toWrite),arg);
         }
 
+        /// <summary>
+        /// Writes an object followed by a new line
+        /// </summary>
+        /// <param name="toWrite">The object to write</param>
         public void WriteLine(object toWrite)
         {
             Out.WriteLine(toWrite);
         }
 
 
+
+        /// <summary>
+        /// Write an object with arguments to the stream. {2}, etc.
+        /// </summary>
+        /// <param name="toWrite">The Object to be written to the stream</param>
+        /// <param name="arg">The arguments for that object</param>
         public void Write(object toWrite, params object[] arg)
         {
-            Out.Write(toWrite as string, arg);
+            Out.Write(Convert.ToString(toWrite), arg);
         }
 
+        /// <summary>
+        /// Writes and object to the stream
+        /// </summary>
+        /// <param name="toWrite">The object to write</param>
         public void Write(object toWrite)
         {
             Out.Write(toWrite);
@@ -50,39 +78,74 @@ namespace ConsoleLib.UI.Components.Textboxes
         }
 
 
+        /// <summary>
+        /// Clear the output stream.
+        /// </summary>
+        public void ClearOutput()
+        {
+            ConsoleText.Clear();
+        }
 
+        #endregion
+
+        #region Read
+
+        /// <summary>
+        /// Reads a character from the console component
+        /// </summary>
+        /// <returns>The character read</returns>
         public char Read()
         {
             Reading = true;
-            while (Reading) ;
+            while (Reading) ; //Wait for user to enter input
+            
             return (char)In.Read();
         }
 
+        /// <summary>
+        /// Reads a segment/string from input
+        /// </summary>
+        /// <returns>The read string</returns>
         public string ReadLine()
         {
             Reading = true;
-            while (Reading) ;
+            while (Reading) ; //Wait for user to enter input
             return In.ReadLine();
         }
 
-        public void Clear()
+        /// <summary>
+        /// Attempts to read an Integer32
+        /// </summary>
+        /// <param name="tryRead">The integer that will be read (may fail)</param>
+        /// <returns> Whether or not the parse was successful</returns>
+        public bool ReadInt(out int tryRead)
         {
-            consoleText.Clear();
+            return int.TryParse(ReadLine(), out tryRead);
         }
+
+        /// <summary>
+        /// Attempts to read an doubleeger32
+        /// </summary>
+        /// <param name="tryRead">The doubleeger that will be read (may fail)</param>
+        /// <returns> Whether or not the parse was successful</returns>
+        public bool ReadDouble(out double tryRead)
+        {
+            return double.TryParse(ReadLine(), out tryRead);
+        }
+
         #endregion
+
 
         #region Functioning Loop
 
-        public override void Render()
-        {
-            ComponentEditor.Clear(this);
-            ComponentEditor.WriteString(this, _VisibleText + _CurrentInput, DrawStartX, DrawStartY, DrawEndX, DrawEndY);
-        }
-
+        /// <summary>
+        /// Updates the console
+        /// </summary>
         public void Update()
         {
+
             lock(Text)
-                Text = consoleText.ToString();
+                Text = ConsoleText.ToString() + _CurrentInput;
         }
 
         #endregion
@@ -91,7 +154,7 @@ namespace ConsoleLib.UI.Components.Textboxes
 
         private string _CurrentInput;
         private bool Reading;
-        protected StringBuilder consoleText;
+        protected StringBuilder ConsoleText;
 
         #endregion
 
@@ -99,6 +162,8 @@ namespace ConsoleLib.UI.Components.Textboxes
 
         public StringWriter Out {set;get;}
         public StringReader In { set; get; }
+
+
 
 
         #endregion
@@ -137,11 +202,7 @@ namespace ConsoleLib.UI.Components.Textboxes
 
         #endregion
 
-
         public List<Delimit> Delimiters { get; set; }
         public bool WantsFocus { get; set; }
-
-
-
     }
 }

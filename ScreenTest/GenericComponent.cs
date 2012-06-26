@@ -12,7 +12,6 @@ namespace ScreenTest
     public class GenericComponent : DrawableComponent
     {
 
-        int count = 0;
         public GenericComponent(string Name,int SizeX, int SizeY, int X, int Y, float Rotation) : base(Name, SizeX, SizeY, X, Y, Rotation)
         {
             ComponentEditor.ModifyAll(this,new Pixel(' ', ConsoleColor.Black, ConsoleColor.Red));

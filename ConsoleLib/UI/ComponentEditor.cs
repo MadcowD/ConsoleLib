@@ -36,7 +36,7 @@ namespace ConsoleLib.UI
 
                 }
         }
-   
+
 
         public static void WriteString(DrawableComponent Component, string Str, int X, int Y, int SizeX, int SizeY)
         {

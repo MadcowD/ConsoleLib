@@ -30,8 +30,7 @@ namespace ConsoleLib.UI
         /// <summary>
         /// A single color pixel with a ' ' char value
         /// </summary>
-        /// <param name="Value"></param>
-        /// <param name="SingleColor"></param>
+        /// <param name="SingleColor">The color</param>
         public Pixel(ConsoleColor SingleColor)
         {
             this.Value = new Win32Console.CharInfo() { Char = { AsciiChar = (byte)' ', UnicodeChar = ' ' } };
@@ -50,6 +49,10 @@ namespace ConsoleLib.UI
         }
 
         #region Properties
+
+        /// <summary>
+        /// The actual character value of the pixel.
+        /// </summary>
         public CharInfo Value { get; set; }
 
 
@@ -126,6 +129,10 @@ namespace ConsoleLib.UI
             return Value.ToString();
         }
 
+        /// <summary>
+        /// Sets the value of the character.
+        /// </summary>
+        /// <param name="set">The new unicode character to be set.</param>
         public void SetChar(char set)
         {
             this.Value = new Win32Console.CharInfo() { Char = { AsciiChar = (byte)set, UnicodeChar = set }, Attributes = this.Value.Attributes};

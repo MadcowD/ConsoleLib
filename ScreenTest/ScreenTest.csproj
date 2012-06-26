@@ -49,7 +49,7 @@
     <Compile Include="TextBoxComponent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScreenLib\ConsoleLib.csproj">
+    <ProjectReference Include="..\ConsoleLib\ConsoleLib.csproj">
       <Project>{1FEFBCBA-0B32-4653-9CC2-6020BBA523C3}</Project>
       <Name>ConsoleLib</Name>
     </ProjectReference>

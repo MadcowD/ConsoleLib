@@ -56,9 +56,11 @@ namespace ConsoleLib
                 {
                     lock (c)
                     {
+
                         if(c is IRenderable)
                             (c as IRenderable).Render();
                         if(c is IDrawable)
+                            if((c as IDrawable).DrawEnabled)
                             (c as IDrawable).Draw(_PreBuffer, Height, Width);
                     }
                 }
@@ -85,17 +87,20 @@ namespace ConsoleLib
         private void UpdateLoop(){
             while (!Stop)
             {
-                foreach (Component c in Components.Values)
+                lock (this)
                 {
-                    lock (c)
+                    foreach (Component c in Components.Values)
                     {
-                        if (c is IHandlesInput)
-                            InputManager.AddFocus(c as IHandlesInput);
+                        lock (c)
+                        {
+                            if (c is IHandlesInput)
+                                InputManager.AddFocus(c as IHandlesInput);
 
-                        if (c is IUpdatable)
-                            (c as IUpdatable).Update();
+                            if (c is IUpdatable)
+                                (c as IUpdatable).Update();
 
 
+                        }
                     }
                 }
 
@@ -112,13 +117,14 @@ namespace ConsoleLib
         IDrawableUnit[,] _PreBuffer;
         private Thread _RenderThread;
         private Thread _UpdateThread;
+        bool Updating = false;
         private SafeFileHandle h = CreateFile("CONOUT$", 0x40000000, 2, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
 
 
 
         InputComponent InputManager;
         private Dictionary<string, Component> Components;
-
+        private Queue<Component> ComponentsQueue;
         #endregion
 
         #region Properties
@@ -148,9 +154,10 @@ namespace ConsoleLib
 
         #region Helpers
 
-        public void AddComponent(Component c){
-
-            Components.Add(c.Name, c);
+        public void AddComponent(Component c)
+        {
+            if(!Stop)
+                Components.Add(c.Name, c);
         }
 
         public Component GetComponent(string name)
@@ -160,6 +167,16 @@ namespace ConsoleLib
             return ret;
         }
 
+        public void RemoveComponent(Component c)
+        {
+            if(!Stop)
+                Components.Remove(c.Name);
+        }
+
+        public void RemoveComponent(string c)
+        {
+            Components.Remove(c);
+        }
 
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]

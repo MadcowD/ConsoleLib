@@ -23,9 +23,9 @@ namespace ScreenTest
 
             //Build Components
             //Text1
-            builder.setPosition(0, 20);
-            builder.setSize(80, 5);
-            builder.setBackground(ConsoleColor.Black);
+            builder.setPosition(0, 0);
+            builder.setSize(30, 3);
+            builder.setBackground(ConsoleColor.Green);
             builder.setForeground(ConsoleColor.Red);
             builder.setTransparent(true);
             ConsoleComponent console = new ConsoleComponent("Text1", builder.Make() as DrawableComponent);
@@ -34,33 +34,25 @@ namespace ScreenTest
 
             //Add components
             sc.AddComponent(console);
-
-
             sc.Start();
 
 
             //CONSOLE TEST :)
-            console.WriteLine("Please enter your age:");
+            console.Write("Please enter your age:");
 
-            string line = console.ReadLine();
+            
 
             int x;
-            while (!int.TryParse(line,out x))
+            while (!console.ReadInt(out x))
+                console.Write("This is not a valid number. Please enter again:");
 
-            {
-
-                console.WriteLine("This is not a valid number. Please enter again:");
-
-                line = console.ReadLine();
-
-            }
 
 
 
             console.WriteLine("you just wrote {0}", x);
 
             console.Read();
-            console.Clear();
+            console.ClearOutput();
 
             console.Write("Tits");
 

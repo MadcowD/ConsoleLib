@@ -15,7 +15,6 @@ namespace ConsoleLib.UI.Components
         }
 
 
-
         #region Functioning Loop
 
         public override void Initialize()
@@ -77,6 +76,47 @@ namespace ConsoleLib.UI.Components
         #endregion
 
         #region Helpers
+
+        public void Hide()
+        {
+            foreach(IDrawable currentComponent in Contains){
+                currentComponent.DrawEnabled = false;
+            }
+        }
+
+        public void Show()
+        {
+            foreach (IDrawable currentComponent in Contains)
+            {
+                currentComponent.DrawEnabled = true;
+            }
+        }
+
+        public void Add(ITransformable addComponent)
+        {
+            Contains.Add(addComponent);
+        }
+
+        public void Remove(ITransformable removeComponent)
+        {
+            Contains.Remove(removeComponent);
+        }
+
+        public void Remove(string name)
+        {
+            foreach (Component c in Contains)
+                if (c.Name.Equals(name))
+                    Contains.Remove(c as ITransformable);
+        }
+
+        public Component Get(string name)
+        {
+            foreach (Component c in Contains)
+                if (c.Name.Equals(name))
+                    return c;
+            return null;
+        }
+
         #endregion
     }
 }

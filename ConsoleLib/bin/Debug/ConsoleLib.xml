@@ -4,55 +4,91 @@
         <name>ConsoleLib</name>
     </assembly>
     <members>
-        <member name="T:ConsoleLib.UI.Pixel">
+        <member name="T:ConsoleLib.UI.Modules.ITransformable">
             <summary>
-            Pixel class, the basic of all componets
+            Specifies any class that is transformable on a XY axis.
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.Char,System.ConsoleColor,System.ConsoleColor)">
+        <member name="P:ConsoleLib.UI.Modules.ITransformable.X">
             <summary>
-            Set the initial contents of the Pixel
-            </summary>
-            <param name="Value">The character that this Pixel represents</param>
-            <param name="ForeColor">The forecolor that the pixel will take on.</param>
-            <param name="BackColor">The backcolor that the pixel will take on.</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.ConsoleColor)">
-            <summary>
-            A single color pixel with a ' ' char value
-            </summary>
-            <param name="Value"></param>
-            <param name="SingleColor"></param>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.#ctor">
-            <summary>
-            Specifies the default Pixel.
+            The X coordinate
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Pixel.ManagedDraw">
+        <member name="P:ConsoleLib.UI.Modules.ITransformable.Y">
             <summary>
-            Prints the pixel to the console (NOT EFFICIENT)
+            The Y coordinate
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Pixel.ToString">
+        <member name="T:ConsoleLib.UI.Components.TextBoxComponent">
             <summary>
-            Returns the literal char value of Pixel
+            A TextBoxComponent with which text can be displayed to the Screen.
             </summary>
-            <returns>Writes the pixel to the screen</returns>
         </member>
-        <member name="P:ConsoleLib.UI.Pixel.BackColor">
+        <member name="T:ConsoleLib.UI.IDrawable">
             <summary>
-            Gets or sets the background Value.Attribute of the pixel through a ConsoleColor struct.
-            ConsoleColor is converted into the proper byte form.
+            Specifies any class that is drawable
             </summary>
-            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
         </member>
-        <member name="P:ConsoleLib.UI.Pixel.ForeColor">
+        <member name="M:ConsoleLib.UI.IDrawable.Draw(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:],System.Int32,System.Int32)">
             <summary>
-            Gets or sets the foreground Value.Attribute of the pixel through a ConsoleColor struct.
-            ConsoleColor is converted into the proper byte form.
+            Draws the class to a buffer.
             </summary>
-            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
+            <param name="buffer">The specific buffer to which the class will be drawn</param>
+            <param name="Height">The height of the specified buffer.</param>
+            <param name="Width">The width of the specified buffer.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.IDrawable.DrawEnabled">
+            <summary>
+            If drawing is enabled.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.IDrawable.Transparent">
+            <summary>
+            If true, null characters shan't be drawn.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.IDrawable.Contents">
+            <summary>
+            The drawable contents of the class.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IRotatable">
+            <summary>
+            Specifies any class that can rotate.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IRotatable.CalculateRotation">
+            <summary>
+            The result of the rotation calculated
+            </summary>
+            <returns>The calculated rotation</returns>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IRotatable.Rotation">
+            <summary>
+            The rotation of that class.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IScalable">
+            <summary>
+            Specifies any class that is scalable or has a size.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IScalable.Scale(System.Int32,System.Int32)">
+            <summary>
+            Scale the object according to all of its other components
+            </summary>
+            <param name="newX">The new height</param>
+            <param name="newY">The new width</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IScalable.SizeX">
+            <summary>
+            The width of the scalable class
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IScalable.SizeY">
+            <summary>
+            The height of the scalable class
+            </summary>
         </member>
         <member name="M:ConsoleLib.UI.Components.DrawableComponent.CalculateRotation">
             <summary>
@@ -141,6 +177,299 @@
         <member name="P:ConsoleLib.UI.Components.DrawableComponent.Rotation">
             <summary>
             The rotation in float degrees of the component.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IRenderable">
+            <summary>
+            Specifies any class that is rederable in a loop
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IRenderable.Render">
+            <summary>
+            Renders the class accordingly with its own components
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.TextBoxComponent._Text">
+            <summary>
+            The instantiated variable containing the raw text.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.TextBoxComponent._VisibleText">
+            <summary>
+            The calculated visual text with which will be displayed in the textbox. SEE SCROLL.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.TextBoxComponent.Scroll">
+            <summary>
+            Calculates the visual range that is going to be displayed if the text is larger than the visible area.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.TextBoxComponent.Text">
+            <summary>
+            The text containted within the textbox.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.TextBoxComponent.ScrollPosition">
+            <summary>
+            The position with which the visible area is determined
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.TextBoxComponent.AutoScroll">
+            <summary>
+            If the Scroll Position should be automatically determined at the end of the Text.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IUpdatable">
+            <summary>
+            The IUpdatable interfaces specifies any class which can be updated in a loop.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IUpdatable.Update">
+            <summary>
+            Updates the inherenting class.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.WriteLine(System.Object,System.Object[])">
+            <summary>
+            Write an object with arguments to the stream. {2}, etc.
+            </summary>
+            <param name="toWrite">The Object to be written to the stream</param>
+            <param name="arg">The arguments for that object</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.WriteLine(System.Object)">
+            <summary>
+            Writes an object followed by a new line
+            </summary>
+            <param name="toWrite">The object to write</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Write(System.Object,System.Object[])">
+            <summary>
+            Write an object with arguments to the stream. {2}, etc.
+            </summary>
+            <param name="toWrite">The Object to be written to the stream</param>
+            <param name="arg">The arguments for that object</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Write(System.Object)">
+            <summary>
+            Writes and object to the stream
+            </summary>
+            <param name="toWrite">The object to write</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ClearOutput">
+            <summary>
+            Clear the output stream.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Read">
+            <summary>
+            Reads a character from the console component
+            </summary>
+            <returns>The character read</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ReadLine">
+            <summary>
+            Reads a segment/string from input
+            </summary>
+            <returns>The read string</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ReadInt(System.Int32@)">
+            <summary>
+            Attempts to read an Integer32
+            </summary>
+            <param name="tryRead">The integer that will be read (may fail)</param>
+            <returns> Whether or not the parse was successful</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ReadDouble(System.Double@)">
+            <summary>
+            Attempts to read an doubleeger32
+            </summary>
+            <param name="tryRead">The doubleeger that will be read (may fail)</param>
+            <returns> Whether or not the parse was successful</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Update">
+            <summary>
+            Updates the console
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.SmallRect">
+            <summary>
+            The win32 small rect class imported for managed use.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Left">
+            <summary>
+            The co-ordinate of the left point on the rectangle.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Top">
+            <summary>
+            The co-ordinate of the top point on the rectangle.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Right">
+            <summary>
+            The co-ordinate of the right point on the rectangle.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Bottom">
+            <summary>
+            The co-ordinate of the bottom point on the rectangle.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.Coord">
+            <summary>
+            Win32 Coord struct imported for managed use.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.Coord.X">
+            <summary>
+            The X Coordinate
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.Coord.Y">
+            <summary>
+            The Y Coordinate
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.Coord.#ctor(System.Int16,System.Int16)">
+            <summary>
+            Creates a new Coord under the specified parameters.
+            </summary>
+            <param name="X">The new X</param>
+            <param name="Y">The new Y</param>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IDrawableUnit">
+            <summary>
+            Specifies any class that can be drawn
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IDrawableUnit.ManagedDraw">
+            <summary>
+            Draws the class using managed methods
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IDrawableUnit.SetChar(System.Char)">
+            <summary>
+            Sets the value in terms of a character.
+            </summary>
+            <param name="set">Sets the character value of the class.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.Value">
+            <summary>
+            The actual character value of the class.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.BackColor">
+            <summary>
+            The background color attribute of the class.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.ForeColor">
+            <summary>
+            The foregroung color attribute of the class.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Pixel">
+            <summary>
+            Pixel class, the basic of all componets
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.Char,System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Set the initial contents of the Pixel
+            </summary>
+            <param name="Value">The character that this Pixel represents</param>
+            <param name="ForeColor">The forecolor that the pixel will take on.</param>
+            <param name="BackColor">The backcolor that the pixel will take on.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.ConsoleColor)">
+            <summary>
+            A single color pixel with a ' ' char value
+            </summary>
+            <param name="SingleColor">The color</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor">
+            <summary>
+            Specifies the default Pixel.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.ManagedDraw">
+            <summary>
+            Prints the pixel to the console (NOT EFFICIENT)
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.ToString">
+            <summary>
+            Returns the literal char value of Pixel
+            </summary>
+            <returns>Writes the pixel to the screen</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.SetChar(System.Char)">
+            <summary>
+            Sets the value of the character.
+            </summary>
+            <param name="set">The new unicode character to be set.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.Value">
+            <summary>
+            The actual character value of the pixel.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.BackColor">
+            <summary>
+            Gets or sets the background Value.Attribute of the pixel through a ConsoleColor struct.
+            ConsoleColor is converted into the proper byte form.
+            </summary>
+            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.ForeColor">
+            <summary>
+            Gets or sets the foreground Value.Attribute of the pixel through a ConsoleColor struct.
+            ConsoleColor is converted into the proper byte form.
+            </summary>
+            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IPrintable">
+            <summary>
+            Specifies any class that can be printed through managed methods.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IPrintable.Print(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:])">
+            <summary>
+            Prints the class
+            </summary>
+            <param name="DrawThis"></param>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.CharUnion">
+            <summary>
+            A union between unicode characters and ascii characters imported from Win32
+            for managed use.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.CharUnion.UnicodeChar">
+            <summary>
+            The specified unicode character within the union.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.CharUnion.AsciiChar">
+            <summary>
+            The specified ASCII character within the union.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.CharInfo">
+            <summary>
+            Character information (char + atttributes) imported from Win32
+            for managed use.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.CharInfo.Char">
+            <summary>
+            The CharUnion containing the actual character.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.CharInfo.Attributes">
+            <summary>
+            The attributes of the character.
             </summary>
         </member>
     </members>
