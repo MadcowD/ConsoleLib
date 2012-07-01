@@ -46,13 +46,15 @@
     <Compile Include="GenericComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextBoxComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleLib\ConsoleLib.csproj">
       <Project>{1FEFBCBA-0B32-4653-9CC2-6020BBA523C3}</Project>
       <Name>ConsoleLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="xmlfile.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,7 +23,7 @@ namespace ConsoleLib.UI.Components.Textboxes
             //Set up input
             _CurrentInput = "";
             Reading = false;
-            WantsFocus = true;
+            WantsFocus = false;
 
             //Set up the contents of the console
             ConsoleText = new StringBuilder(Text);
@@ -97,8 +97,9 @@ namespace ConsoleLib.UI.Components.Textboxes
         public char Read()
         {
             Reading = true;
+            WantsFocus = true;
             while (Reading) ; //Wait for user to enter input
-            
+            WantsFocus = false;
             return (char)In.Read();
         }
 
@@ -109,7 +110,9 @@ namespace ConsoleLib.UI.Components.Textboxes
         public string ReadLine()
         {
             Reading = true;
+            WantsFocus = true;
             while (Reading) ; //Wait for user to enter input
+            WantsFocus = false;
             return In.ReadLine();
         }
 

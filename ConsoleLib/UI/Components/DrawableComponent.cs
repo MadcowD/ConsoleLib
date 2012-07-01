@@ -19,6 +19,8 @@ namespace ConsoleLib.UI.Components
             this.Y = Y;
             this.Rotation = Rotation;
             this.DrawEnabled = true;
+            this.Foreground = ConsoleColor.Gray;
+            this.Background = ConsoleColor.Black;
         }
 
         public DrawableComponent(string Name, DrawableComponent instance)

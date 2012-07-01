@@ -51,6 +51,7 @@
     <Compile Include="UI\Builders\IBuilder.cs" />
     <Compile Include="UI\Component.cs" />
     <Compile Include="UI\Builders\DrawableComponentBuilder.cs" />
+    <Compile Include="UI\ComponentLoader.cs" />
     <Compile Include="UI\Components\ButtonComponent.cs" />
     <Compile Include="UI\Components\GroupComponent.cs" />
     <Compile Include="UI\Components\DrawableComponent.cs" />

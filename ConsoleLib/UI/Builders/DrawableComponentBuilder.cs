@@ -19,6 +19,10 @@ namespace ConsoleLib.UI.Builders
             return new DrawableComponent(build.Name, build);
         }
 
+        public static DrawableComponent MakeConsole()
+        {
+            return new DrawableComponent("Console", 80, 25, 0, 0, 0.0f);
+        }
         public void Reset()
         {
 

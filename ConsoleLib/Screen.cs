@@ -17,121 +17,145 @@ namespace ConsoleLib
 {
     public class Screen
     {
-        public Screen(int TickWait, IDrawableUnit Background, string Title)
+        public Screen(string Title, IDrawableUnit Background)
         {
-            this.Width = 80;
-            this.Height = 25;
+            //Set up component management
             Components = new Dictionary<string, Component>();
-            _PreBuffer = new IDrawableUnit[Width, Height];
-            _Buffer = new CharInfo[Width * Height];
+            InLoop = false;
 
+            //Set up buffers
+            PreBuffer = new IDrawableUnit[80, 25];
+            Buffer = new CharInfo[80 * 25];
 
+            //Set up screen properties
             this.Background = Background;
             this.ConsoleTitle = Title;
 
+            //Set up input
             InputManager = new InputComponent(true, true);
-            AddComponent(InputManager);
-            Stop = false;
+            Add(InputManager);
+
+            //Set up runtime
+            Running = false;
         }
 
         #region Runtime
+
+        private bool Running = false;
+
+        /// <summary>
+        /// Starts execution of the screen thread
+        /// </summary>
         public void Start()
         {
             if (!h.IsInvalid)
             {
-                _RenderThread = new Thread(new ThreadStart(RenderLoop));
-                _RenderThread.Start();
+                Running = true;
+                ScreenThread = new Thread(new ThreadStart(Run));
+                ScreenThread.Start();
+                InputManager.Asynchronous = true;
             }
-
-            _UpdateThread = new Thread(new ThreadStart(UpdateLoop));
-            _UpdateThread.Start();
         }
 
-        private void RenderLoop(){
-            while (!Stop){
-                //Draw
+        /// <summary>
+        /// Stops execution of the screen thread.
+        /// </summary>
+        public void Stop()
+        {
+            if (ScreenThread.IsAlive)
+                Running = false;
+            InputManager.Asynchronous = false;
+        }
 
-                _PreBuffer = new IDrawableUnit[Width, Height];
+
+
+
+        /// <summary>
+        /// Actual threading section
+        /// </summary>
+        public void Run()
+        {
+            while (Running)
+            {
+                InLoop = true;
                 foreach (Component c in Components.Values)
                 {
                     lock (c)
                     {
-
-                        if(c is IRenderable)
-                            (c as IRenderable).Render();
-                        if(c is IDrawable)
-                            if((c as IDrawable).DrawEnabled)
-                            (c as IDrawable).Draw(_PreBuffer, Height, Width);
+                        Update(c);
+                        Render(c);
                     }
                 }
-                //Convert
-                    for (int y = 0; y < Height; y++)
-                        for (int x = 0; x < Width; x++)
-                            if (_PreBuffer[x, y] == null)
-                                _Buffer[y * Width + x] = Background.Value;
-                            else
-                                _Buffer[y * Width + x] = _PreBuffer[x, y].Value;
-
-                        SmallRect rect = new SmallRect() { Left = 0, Top = 0, Right = 80, Bottom = 25 }; //Create a rectangle for ConsoleWIndow
-
-                        bool b = WriteConsoleOutput(h, _Buffer,
-                           new Coord() { X = 80, Y = 25 },
-                           new Coord() { X = 0, Y = 0 },
-                           ref rect);
-
-
-               Thread.Sleep(TickWait);
-            }
-        }
-
-        private void UpdateLoop(){
-            while (!Stop)
-            {
-                lock (this)
-                {
-                    foreach (Component c in Components.Values)
-                    {
-                        lock (c)
-                        {
-                            if (c is IHandlesInput)
-                                InputManager.AddFocus(c as IHandlesInput);
-
-                            if (c is IUpdatable)
-                                (c as IUpdatable).Update();
-
-
-                        }
-                    }
-                }
-
-                Thread.Sleep(TickWait);
+                Draw();
+                InLoop = false;
+                Thread.Sleep(33);
             }
 
-            InputManager.Asynchronous = false;
         }
+
+        /// <summary>
+        /// Update loop portion
+        /// </summary>
+        private void Update(Component c)
+        {
+            if (c is IHandlesInput)
+                InputManager.AddFocus(c as IHandlesInput);
+
+            if (c is IUpdatable)
+                (c as IUpdatable).Update();
+        }
+
+        /// <summary>
+        /// Render loop portion
+        /// </summary>
+        private void Render(Component c)
+        {
+            if (c is IRenderable)
+                (c as IRenderable).Render();
+
+            if (c is IDrawable)
+                if ((c as IDrawable).DrawEnabled)
+                    (c as IDrawable).Draw(PreBuffer, 25, 80);
+        }
+
+        private void Draw()
+        {
+            for (int y = 0; y < 25; y++)
+                for (int x = 0; x < 80; x++)
+                    if (PreBuffer[x, y] == null)
+                        Buffer[y * 80 + x] = Background.Value;
+                    else
+                        Buffer[y * 80 + x] = PreBuffer[x, y].Value;
+
+            SmallRect rect = new SmallRect() { Left = 0, Top = 0, Right = 80, Bottom = 25 }; //Create a rectangle for ConsoleWIndow
+
+            bool b = WriteConsoleOutput(h, Buffer,
+               new Coord() { X = 80, Y = 25 },
+               new Coord() { X = 0, Y = 0 },
+               ref rect);
+
+
+            //Reset prebuffer
+            PreBuffer = new IDrawableUnit[80, 25];
+        }
+
         #endregion
 
         #region Variables
 
-        private CharInfo[] _Buffer;
-        IDrawableUnit[,] _PreBuffer;
-        private Thread _RenderThread;
-        private Thread _UpdateThread;
-        bool Updating = false;
-        private SafeFileHandle h = CreateFile("CONOUT$", 0x40000000, 2, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
+        //Thread
+        private Thread ScreenThread;
 
+        //Buffers
+        private IDrawableUnit[,] PreBuffer;
+        private CharInfo[] Buffer;
 
-
+        //Input
         InputComponent InputManager;
-        private Dictionary<string, Component> Components;
-        private Queue<Component> ComponentsQueue;
+
         #endregion
 
         #region Properties
-
-        public int Width { get; set; }
-        public int Height { get; set; }
-
         public string ConsoleTitle
         {
             get
@@ -144,40 +168,107 @@ namespace ConsoleLib
             }
         }
         public IDrawableUnit Background { get; set; }
+        #endregion
 
-        public bool Stop { get; set; }
-        public int TickWait { get; set; }
+        #region Component Management
 
+        /// <summary>
+        /// The Component container
+        /// </summary>
+        private Dictionary<string, Component> Components;
+        /// <summary>
+        /// Specifies whether or not it is safe to add components
+        /// </summary>
+        bool InLoop;
 
+        //All access functions
+        #region Add
+
+        /// <summary>
+        /// Adds a component using its inherent name.
+        /// </summary>
+        /// <param name="c">The component to add.</param>
+        public void Add(Component c)
+        {
+            while (InLoop) ;
+            Components.Add(c.Name, c);
+        }
+
+        /// <summary>
+        /// Adds a component using a specified name.
+        /// </summary>
+        /// <param name="componentName">The name under which the component will be.</param>
+        /// <param name="c">The component to add.</param>
+        public void Add(string componentName, Component c)
+        {
+            while (InLoop) ;
+            Components.Add(componentName, c);
+        }
 
         #endregion
 
-        #region Helpers
+        #region Remove
 
-        public void AddComponent(Component c)
+        /// <summary>
+        /// Removes a component using a specified name.
+        /// </summary>
+        /// <param name="name">The name of the component to be removed.</param>
+        /// <returns>Whether or not the component was removed (or even existed)</returns>
+        bool Remove(string name)
         {
-            if(!Stop)
-                Components.Add(c.Name, c);
+            while (InLoop) ;
+            return Components.Remove(name);
         }
 
-        public Component GetComponent(string name)
+        /// <summary>
+        /// Removes a specified component using its name.
+        /// </summary>
+        /// <param name="c">The component attempting to be removed.</param>
+        /// <returns>If the component was removed (or even existed)</returns>
+        bool Remove(Component c)
         {
-            Component ret;
-            Components.TryGetValue(name, out ret);
-            return ret;
+            while (InLoop) ;
+            return Components.Remove(c.Name);
         }
 
-        public void RemoveComponent(Component c)
+        #endregion
+
+        #region Get
+
+        /// <summary>
+        /// Gets a component specified by its name.
+        /// </summary>
+        /// <param name="name">The name of the component to get.</param>
+        /// <param name="tryComponent">The possible gotten component</param>
+        public void Get(string name, out Component tryComponent)
         {
-            if(!Stop)
-                Components.Remove(c.Name);
+            Components.TryGetValue(name, out tryComponent);
         }
 
-        public void RemoveComponent(string c)
+        #endregion
+
+        #region Set
+        /// <summary>
+        /// Sets a component (or adds one if there is not one);
+        /// </summary>
+        /// <param name="name">The name of the component to set</param>
+        /// <param name="c">The new component</param>
+        public void Set(string name, Component c)
         {
-            Components.Remove(c);
+            while (InLoop) ;
+
+            Remove(name);
+            Add(name, c);
+
         }
 
+        #endregion
+
+        #endregion
+
+        #region Win32 Component
+
+        private SafeFileHandle h = CreateFile("CONOUT$", 0x40000000, 2, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern SafeFileHandle CreateFile(
