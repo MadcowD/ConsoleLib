@@ -15,7 +15,7 @@ using ConsoleLib.UI.Components.Input;
 
 namespace ConsoleLib
 {
-    public class Screen
+    public class Screen : IContainsComponents
     {
         public Screen(string Title, IDrawableUnit Background)
         {
@@ -214,7 +214,7 @@ namespace ConsoleLib
         /// </summary>
         /// <param name="name">The name of the component to be removed.</param>
         /// <returns>Whether or not the component was removed (or even existed)</returns>
-        bool Remove(string name)
+        public bool Remove(string name)
         {
             while (InLoop) ;
             return Components.Remove(name);
@@ -225,7 +225,7 @@ namespace ConsoleLib
         /// </summary>
         /// <param name="c">The component attempting to be removed.</param>
         /// <returns>If the component was removed (or even existed)</returns>
-        bool Remove(Component c)
+        public bool Remove(Component c)
         {
             while (InLoop) ;
             return Components.Remove(c.Name);

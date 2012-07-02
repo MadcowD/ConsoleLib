@@ -179,6 +179,16 @@
             The rotation in float degrees of the component.
             </summary>
         </member>
+        <member name="T:ConsoleLib.UI.Modules.IRenderable">
+            <summary>
+            Specifies any class that is rederable in a loop
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IRenderable.Render">
+            <summary>
+            Renders the class accordingly with its own components
+            </summary>
+        </member>
         <member name="F:ConsoleLib.UI.Components.TextBoxComponent._Text">
             <summary>
             The instantiated variable containing the raw text.
@@ -306,15 +316,81 @@
             The co-ordinate of the bottom point on the rectangle.
             </summary>
         </member>
-        <member name="T:ConsoleLib.UI.Modules.IRenderable">
+        <member name="M:ConsoleLib.Screen.Start">
             <summary>
-            Specifies any class that is rederable in a loop
+            Starts execution of the screen thread
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Modules.IRenderable.Render">
+        <member name="M:ConsoleLib.Screen.Stop">
             <summary>
-            Renders the class accordingly with its own components
+            Stops execution of the screen thread.
             </summary>
+        </member>
+        <member name="M:ConsoleLib.Screen.Run">
+            <summary>
+            Actual threading section
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Screen.Update(ConsoleLib.UI.Component)">
+            <summary>
+            Update loop portion
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Screen.Render(ConsoleLib.UI.Component)">
+            <summary>
+            Render loop portion
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Screen.Components">
+            <summary>
+            The Component container
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Screen.InLoop">
+            <summary>
+            Specifies whether or not it is safe to add components
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Screen.Add(ConsoleLib.UI.Component)">
+            <summary>
+            Adds a component using its inherent name.
+            </summary>
+            <param name="c">The component to add.</param>
+        </member>
+        <member name="M:ConsoleLib.Screen.Add(System.String,ConsoleLib.UI.Component)">
+            <summary>
+            Adds a component using a specified name.
+            </summary>
+            <param name="componentName">The name under which the component will be.</param>
+            <param name="c">The component to add.</param>
+        </member>
+        <member name="M:ConsoleLib.Screen.Remove(System.String)">
+            <summary>
+            Removes a component using a specified name.
+            </summary>
+            <param name="name">The name of the component to be removed.</param>
+            <returns>Whether or not the component was removed (or even existed)</returns>
+        </member>
+        <member name="M:ConsoleLib.Screen.Remove(ConsoleLib.UI.Component)">
+            <summary>
+            Removes a specified component using its name.
+            </summary>
+            <param name="c">The component attempting to be removed.</param>
+            <returns>If the component was removed (or even existed)</returns>
+        </member>
+        <member name="M:ConsoleLib.Screen.Get(System.String,ConsoleLib.UI.Component@)">
+            <summary>
+            Gets a component specified by its name.
+            </summary>
+            <param name="name">The name of the component to get.</param>
+            <param name="tryComponent">The possible gotten component</param>
+        </member>
+        <member name="M:ConsoleLib.Screen.Set(System.String,ConsoleLib.UI.Component)">
+            <summary>
+            Sets a component (or adds one if there is not one);
+            </summary>
+            <param name="name">The name of the component to set</param>
+            <param name="c">The new component</param>
         </member>
         <member name="T:ConsoleLib.Win32Console.Coord">
             <summary>

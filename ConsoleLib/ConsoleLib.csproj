@@ -52,17 +52,21 @@
     <Compile Include="UI\Component.cs" />
     <Compile Include="UI\Builders\DrawableComponentBuilder.cs" />
     <Compile Include="UI\ComponentLoader.cs" />
-    <Compile Include="UI\Components\ButtonComponent.cs" />
+    <Compile Include="UI\Components\Group\DrawableGroupComponent.cs" />
+    <Compile Include="UI\Components\MenuComponent.cs" />
+    <Compile Include="UI\Components\Textbox\ButtonComponent.cs" />
     <Compile Include="UI\Components\GroupComponent.cs" />
     <Compile Include="UI\Components\DrawableComponent.cs" />
     <Compile Include="UI\Components\Input\Delimit.cs" />
     <Compile Include="UI\Components\Input\IHandlesInput.cs" />
     <Compile Include="UI\Components\InputComponent.cs" />
     <Compile Include="UI\Components\TextBoxComponent.cs" />
-    <Compile Include="UI\Components\Textboxes\ConsoleComponent.cs" />
-    <Compile Include="UI\Components\Textboxes\InputBoxComponent.cs" />
-    <Compile Include="UI\Components\Textboxes\LabelComponent.cs" />
+    <Compile Include="UI\Components\Textbox\ConsoleComponent.cs" />
+    <Compile Include="UI\Components\Textbox\InputBoxComponent.cs" />
+    <Compile Include="UI\Components\Textbox\LabelComponent.cs" />
+    <Compile Include="UI\Modules\IContainsComponents.cs" />
     <Compile Include="UI\Modules\IRenderable.cs" />
+    <Compile Include="UI\Modules\ISelectable.cs" />
     <Compile Include="UI\Modules\IUpdatable.cs" />
     <Compile Include="UI\ComponentEditor.cs" />
     <Compile Include="UI\Modules\IDrawableUnit.cs" />
@@ -86,7 +90,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\Components\DrawableComponent\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

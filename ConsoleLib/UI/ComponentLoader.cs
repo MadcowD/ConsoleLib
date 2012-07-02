@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ConsoleLib.UI.Builders;
 
-namespace ConsoleLib.UI.Components.Textboxes
+namespace ConsoleLib.UI
 {
-    class InputBoxComponent
+    public class ComponentLoader
     {
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using ConsoleLib.UI.Modules;
 
-namespace ConsoleLib.UI.Components
+namespace ConsoleLib.UI.Components.Textbox
 {
-    public class ButtonComponent : TextBoxComponent, IRenderable
+    public class ButtonComponent : TextBoxComponent, IRenderable, ISelectable
     {
         public ButtonComponent(string Name, DrawableComponent drawInfo,
             IDrawableUnit SelectedColors, IDrawableUnit PressedColors,
@@ -53,6 +53,13 @@ namespace ConsoleLib.UI.Components
             this.Background = colors.BackColor;
         }
 
+        #region ISelectable
+
+        public bool IsPressed()
+        {
+            return Pressed;
+        }
+
         public void Select()
         {
             Selected = true;
@@ -67,9 +74,10 @@ namespace ConsoleLib.UI.Components
 
         public void Press()
         {
-            Pressed = true;
             SetColors(PressedColors);
         }
+
+        #endregion
 
         #endregion
     }

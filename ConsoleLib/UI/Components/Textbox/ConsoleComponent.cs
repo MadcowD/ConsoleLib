@@ -6,7 +6,7 @@ using System.IO;
 using ConsoleLib.UI.Components.Input;
 using ConsoleLib.UI.Modules;
 
-namespace ConsoleLib.UI.Components.Textboxes
+namespace ConsoleLib.UI.Components.Textbox
 {
     public class ConsoleComponent : TextBoxComponent, IHandlesInput, IUpdatable
     {
