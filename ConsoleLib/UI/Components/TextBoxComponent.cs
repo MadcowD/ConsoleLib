@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ConsoleLib.UI.Modules;
-using ConsoleLib.UI.Components.Input;
 
 namespace ConsoleLib.UI.Components
 {

@@ -13,7 +13,7 @@ namespace ConsoleLib.UI.Components.Group
         }
 
         #region ComponentManagement
-        public void Hide()
+        public virtual void Hide()
         {
             foreach (IDrawable currentComponent in Components.Values)
             {
@@ -21,7 +21,7 @@ namespace ConsoleLib.UI.Components.Group
             }
         }
 
-        public void Show()
+        public virtual void Show()
         {
             foreach (IDrawable currentComponent in Components.Values)
             {

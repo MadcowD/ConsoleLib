@@ -7,8 +7,10 @@ using ConsoleLib;
 using ConsoleLib.UI.Components;
 using ConsoleLib.UI.Builders;
 using System.Threading;
-using ConsoleLib.UI.Components.Textboxes;
 using System.Xml;
+using ConsoleLib.UI.Components.Textbox;
+using System.Windows.Forms;
+
 
 namespace ScreenTest
 {
@@ -17,34 +19,29 @@ namespace ScreenTest
         static void Main(string[] args)
         {
             #region Initialize
-            Screen sc = new Screen("ScreenTest", new Pixel(ConsoleColor.Black));
+            ConsoleMan.Initialize("ScreenTest", new Pixel(ConsoleColor.Black));
+            KeyMan.Start();
+
             ConsoleComponent console = new ConsoleComponent("Text1", DrawableComponentBuilder.MakeConsole());
-            sc.Add(console);
-            sc.Start();
+            TextBoxComponent text = new TextBoxComponent("CursorPosition", new
+                DrawableComponent("CursorPosition", 20, 1, 20, 20, 0.0f));
+
+            ConsoleMan.Add(console);
+            ConsoleMan.Add(text);
+            ConsoleMan.Start();
             #endregion
 
             console.WriteLine("SHIT");
-            XmlTextReader reader = new XmlTextReader("../../xmlfile.xml");
-            while (reader.Read())
+            string x = console.ReadLine();
+            console.Write(x);
+            while (true)
             {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element: // The node is an element.
-                        console.Write("<" + reader.Name);
-                        console.Write(">");
-                        break;
-                    case XmlNodeType.Text: //Display the text in each element.
-                        console.Write(reader.Value);
-                        break;
-                    case XmlNodeType.EndElement: //Display the end of the element.
-                        console.Write("</" + reader.Name);
-                        console.Write(">");
-                        break;
-                }
+
+                text.Text = System.Windows.Forms.Cursor.Position.ToString();
             }
 
-            Thread.Sleep(1000);
-            sc.Stop();
+            ConsoleMan.Stop();
+            KeyMan.Stop();
             return;
 
         }

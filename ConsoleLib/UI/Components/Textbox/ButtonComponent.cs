@@ -10,7 +10,8 @@ namespace ConsoleLib.UI.Components.Textbox
     {
         public ButtonComponent(string Name, DrawableComponent drawInfo,
             IDrawableUnit SelectedColors, IDrawableUnit PressedColors,
-            IDrawableUnit UnselectedColors)
+            IDrawableUnit UnselectedColors,
+            PressAction calledWhenPressed)
             : base(Name,drawInfo)
         {
             this.SelectedColors = SelectedColors;
@@ -20,6 +21,7 @@ namespace ConsoleLib.UI.Components.Textbox
             Pressed = false;
             Selected = false;
             SetColors(UnselectedColors);
+            this.calledWhenPressed = calledWhenPressed;
         }
 
         #region Functioning Loop
@@ -54,6 +56,8 @@ namespace ConsoleLib.UI.Components.Textbox
         }
 
         #region ISelectable
+        public delegate void PressAction();
+        public PressAction calledWhenPressed;
 
         public bool IsPressed()
         {
@@ -75,6 +79,7 @@ namespace ConsoleLib.UI.Components.Textbox
         public void Press()
         {
             SetColors(PressedColors);
+            calledWhenPressed();
         }
 
         #endregion

@@ -3,27 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using ConsoleLib.UI.Components.Input;
 using ConsoleLib.UI.Modules;
 
 namespace ConsoleLib.UI.Components.Textbox
 {
-    public class ConsoleComponent : TextBoxComponent, IHandlesInput, IUpdatable
+    public class ConsoleComponent : TextBoxComponent, IHandlesKeyInput, IUpdatable
     {
         public ConsoleComponent(string Name, DrawableComponent drawInfo) :base(Name, drawInfo)
         {
             //Set up scrolling
             AutoScroll = true;
 
-            //Set up input delimiters
-            Delimiters = new List<Delimit>();
-            Delimiters.Add(this.Enter);
-            Delimiters.Add(InputComponent.BackspaceAndDelete);
-
             //Set up input
             _CurrentInput = "";
             Reading = false;
-            WantsFocus = false;
 
             //Set up the contents of the console
             ConsoleText = new StringBuilder(Text);
@@ -97,9 +90,9 @@ namespace ConsoleLib.UI.Components.Textbox
         public char Read()
         {
             Reading = true;
-            WantsFocus = true;
+            KeyMan.Focus(this);
             while (Reading) ; //Wait for user to enter input
-            WantsFocus = false;
+            KeyMan.Unfocus();
             return (char)In.Read();
         }
 
@@ -110,9 +103,9 @@ namespace ConsoleLib.UI.Components.Textbox
         public string ReadLine()
         {
             Reading = true;
-            WantsFocus = true;
+            KeyMan.Focus(this);
             while (Reading) ; //Wait for user to enter input
-            WantsFocus = false;
+            KeyMan.Unfocus();
             return In.ReadLine();
         }
 
@@ -175,37 +168,26 @@ namespace ConsoleLib.UI.Components.Textbox
 
         #region IHandlesInput
 
-        public void HandleCurrentInput(string current)
+        public void HandleCurrentInput(ConsoleKeyInfo Key)
         {
-            _CurrentInput = current;
-        }
-
-        #region Delimeters
-
-        public bool Enter(ConsoleKeyInfo c, ref string current)
-        {
-            if (c.Key == ConsoleKey.Enter)
+            switch (Key.Key)
             {
-                In = new StringReader(current);
-                WriteLine(_CurrentInput);
-                current = "";
-                Reading = false;
+                case ConsoleKey.Backspace:
+                    _CurrentInput = 
+                        _CurrentInput.Remove(_CurrentInput.Length - 1);
+                    break;
+                case ConsoleKey.Enter:
+                    Reading = false;
+                    break;
+                default:
+                    _CurrentInput += Key.KeyChar;
+                    break;
             }
-
-
-            if (Reading)
-                return true;
-            else
-                return false;
         }
 
         #endregion
 
         #endregion
 
-        #endregion
-
-        public List<Delimit> Delimiters { get; set; }
-        public bool WantsFocus { get; set; }
     }
 }
