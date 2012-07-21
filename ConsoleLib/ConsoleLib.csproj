@@ -78,7 +78,6 @@
     <Compile Include="UI\Modules\IRotatable.cs" />
     <Compile Include="UI\Modules\IScalable.cs" />
     <Compile Include="UI\Modules\ITransformable.cs" />
-    <Compile Include="UI\Vector.cs" />
     <Compile Include="Win32Console\CharInfo.cs" />
     <Compile Include="Win32Console\CharUnion.cs" />
     <Compile Include="Win32Console\Coord.cs" />

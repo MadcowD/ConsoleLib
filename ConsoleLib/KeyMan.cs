@@ -15,11 +15,11 @@ namespace ConsoleLib
         #region Runtime
 
         #region Variables
+
         /// <summary>
-        /// An internal boolean that specifies whether or not input
-        /// has been checked with TryGetKey previously.
+        /// Contains all objects which have checked input while input is not fresh.
         /// </summary>
-        private static bool FreshInput = false;
+        private static List<object> checkedInput = new List<object>();
 
         /// <summary>
         /// Keeps the thread running
@@ -53,9 +53,9 @@ namespace ConsoleLib
             while (Running)
             {
                 CurrentKey = Console.ReadKey();
-                FreshInput = true;
                 if (Focused)
                     CallFoci();
+                checkedInput.Clear();
             }
         }
 
@@ -127,12 +127,12 @@ namespace ConsoleLib
         /// </summary>
         /// <param name="Key">The current key if exists.</param>
         /// <returns>Whether or not the key was recieved.</returns>
-        public static bool TryGetKey(out ConsoleKeyInfo Key)
+        public static bool TryGetKey(out ConsoleKeyInfo Key, object sender)
         {
-            if (!Focused && FreshInput)
+            if (!Focused && !checkedInput.Contains(sender))
             {
-                FreshInput = false;
                 Key = CurrentKey;
+                checkedInput.Add(sender); //prevents the sender from grabbing the same input as last time
                 return true;
             }
             else

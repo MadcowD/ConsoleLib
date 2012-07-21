@@ -5,7 +5,6 @@ using System.Text;
 
 namespace ConsoleLib.UI.Modules
 {
-
     public interface IHandlesKeyInput
     {
         void HandleCurrentInput(ConsoleKeyInfo Key);
