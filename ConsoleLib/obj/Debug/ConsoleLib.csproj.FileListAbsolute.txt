@@ -10,9 +10,9 @@ C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\bin\Debug\Conso
 C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\bin\Debug\ConsoleLib.pdb
 C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\obj\Debug\ConsoleLib.dll
 C:\Users\William\Dropbox\Dev\C#\ConsoleStuff\ScreenLib\ScreenLib\obj\Debug\ConsoleLib.pdb
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleLib.xml
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleLib.dll
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleLib.pdb
-C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.dll
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.pdb

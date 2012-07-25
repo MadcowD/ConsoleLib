@@ -70,7 +70,7 @@ namespace ConsoleLib.UI.Components.Textbox
             SetColors(SelectedColors);
         }
 
-        public void Unselect()
+        public void Deselect()
         {
             Selected = false;
             SetColors(UnselectedColors);

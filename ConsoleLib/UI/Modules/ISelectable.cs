@@ -8,7 +8,7 @@ namespace ConsoleLib.UI.Modules
     public interface ISelectable
     {
         void Select();
-        void Unselect();
+        void Deselect();
         void Press();
 
         bool IsPressed();

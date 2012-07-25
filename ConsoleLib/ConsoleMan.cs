@@ -177,6 +177,8 @@ namespace ConsoleLib
         private static IDrawableUnit[,] PreBuffer;
         private static CharInfo[] Buffer;
 
+        //Runtime ticks
+        public static  int TickTime = 0;
 
         #endregion
 

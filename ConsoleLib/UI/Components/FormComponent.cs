@@ -8,6 +8,11 @@ namespace ConsoleLib.UI.Components
 {
     public abstract class FormComponent : Component
     {
+        public FormComponent(string name)
+            : base(name)
+        {
+        }
+
         #region Functioning Loop
         #endregion
 
@@ -36,6 +41,18 @@ namespace ConsoleLib.UI.Components
         {
             ConsoleMan.Remove(component);
         }
+
+        /// <summary>
+        /// Hides/removes all components from the ConsoleManager
+        /// </summary>
+        public abstract void Hide();
+
+        /// <summary>
+        /// Shows/reregisters all componetns to the ConsoleManager
+        /// </summary>
+        public abstract void Show();
+
+
 
         #endregion
     }
