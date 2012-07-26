@@ -137,7 +137,7 @@ namespace ConsoleLib.UI.Components.Textbox
         /// <summary>
         /// Updates the console
         /// </summary>
-        public void Update()
+        public void Update(int TickTime)
         {
 
             lock(Text)

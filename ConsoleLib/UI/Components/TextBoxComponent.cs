@@ -23,7 +23,7 @@ namespace ConsoleLib.UI.Components
         #region Functioning Loop
 
 
-        public void Render()
+        public void Render(int TickTime)
         {
             ComponentEditor.Clear(this);
             ComponentEditor.WriteString(this, _VisibleText, 0, 0, SizeX, SizeY);

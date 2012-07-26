@@ -14,6 +14,7 @@ namespace ConsoleLib.UI.Modules
         /// <summary>
         /// Updates the inherenting class.
         /// </summary>
-        void Update();
+        /// <param name="TickTime">The current ticktime of the loop</param>
+        void Update(int TickTime);
     }
 }

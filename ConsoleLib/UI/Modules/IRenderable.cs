@@ -13,6 +13,7 @@ namespace ConsoleLib.UI.Modules
         /// <summary>
         /// Renders the class accordingly with its own components
         /// </summary>
-        void Render();
+        /// <param name="TickTime">The current ticktime of the loop</param>
+        void Render(int TickTime);
     }
 }

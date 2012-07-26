@@ -63,6 +63,7 @@ namespace ConsoleLib
         {
             while (Running)
             {
+                TickTime++;
                 InLoop = true;
                 foreach (Component c in Components.Values)
                 {
@@ -99,7 +100,7 @@ namespace ConsoleLib
         private static void Update(Component c)
         {
             if (c is IUpdatable)
-                (c as IUpdatable).Update();
+                (c as IUpdatable).Update(TickTime);
         }
         /// <summary>
         /// Render loop portion
@@ -107,7 +108,7 @@ namespace ConsoleLib
         private static void Render(Component c)
         {
             if (c is IRenderable)
-                (c as IRenderable).Render();
+                (c as IRenderable).Render(TickTime);
 
             if (c is IDrawable)
                 if ((c as IDrawable).DrawEnabled)

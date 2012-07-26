@@ -25,9 +25,9 @@ namespace ConsoleLib.UI.Components.Textbox
         }
 
         #region Functioning Loop
-        public void Render()
+        public void Render(int TickTime)
         {
-            base.Render();
+            base.Render(TickTime);
             ComponentEditor.ModifyBoarders(this);
         }
         #endregion
