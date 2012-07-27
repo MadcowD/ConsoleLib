@@ -5,9 +5,9 @@ using System.Text;
 using System.IO;
 using ConsoleLib.UI.Modules;
 
-namespace ConsoleLib.UI.Components.Textbox
+namespace ConsoleLib.UI.Components.Text
 {
-    public class ConsoleComponent : TextBoxComponent, IHandlesKeyInput, IUpdatable
+    public class ConsoleComponent : TextComponent, IHandlesKeyInput, IUpdatable
     {
         public ConsoleComponent(string Name, DrawableComponent drawInfo) :base(Name, drawInfo)
         {

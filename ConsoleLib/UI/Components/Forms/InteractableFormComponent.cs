@@ -101,10 +101,14 @@ namespace ConsoleLib.UI.Components.Forms
         protected virtual void PressSelectedComponent()
         {
             if (_selectedComponent != null)
+            {
                 _selectedComponent.Press();
+                _selectedComponent.Select();
+            }
         }
 
 
         #endregion
+
     }
 }

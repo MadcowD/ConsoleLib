@@ -7,12 +7,12 @@ using ConsoleLib.UI.Modules;
 namespace ConsoleLib.UI.Components
 {
     /// <summary>
-    /// A TextBoxComponent with which text can be displayed to the Screen.
+    /// A TextComponent with which text can be displayed to the Screen.
     /// </summary>
-    public class TextBoxComponent : DrawableComponent, IRenderable
+    public class TextComponent : DrawableComponent, IRenderable
     {
 
-        public TextBoxComponent(String Name, DrawableComponent drawInfo)
+        public TextComponent(String Name, DrawableComponent drawInfo)
             : base(Name, drawInfo)
         {
             _VisibleText = "";
@@ -23,7 +23,7 @@ namespace ConsoleLib.UI.Components
         #region Functioning Loop
 
 
-        public void Render(int TickTime)
+        public virtual void Render(int TickTime)
         {
             ComponentEditor.Clear(this);
             ComponentEditor.WriteString(this, _VisibleText, 0, 0, SizeX, SizeY);

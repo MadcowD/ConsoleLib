@@ -56,6 +56,8 @@ namespace ConsoleLib
                 if (Focused)
                     CallFoci();
                 checkedInput.Clear();
+                Console.CursorVisible = false;
+                Console.SetCursorPosition(0, 0);
             }
         }
 

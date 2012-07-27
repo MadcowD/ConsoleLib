@@ -140,35 +140,6 @@ namespace ConsoleLib
 
         #endregion
 
-        #region Events
-
-        public static void HandleMouseEvents(object sender, MouseEventArgs e)
-        {
-            //Convert mouse location into pixel locations in consoleman
-
-
-            //Grab all components that can handle mouse input,
-            //can have scale an position, and are containing the location
-            //of the mouse event.
-            foreach (KeyValuePair<string,Component> kvpc in Components.Where(kvp =>
-                kvp.Value is IHandlesMouseInput &&
-                kvp.Value is ITransformable &&
-                kvp.Value is IScalable &&
-                (kvp.Value as ITransformable).X <= e.X &&
-                (kvp.Value as ITransformable).Y <= e.Y &&
-                (kvp.Value as ITransformable).X +
-                    (kvp.Value as IScalable).SizeX >= e.X &&
-                (kvp.Value as ITransformable).Y +
-                    (kvp.Value as IScalable).SizeY >= e.Y))
-            {
-                (kvpc.Value as IHandlesMouseInput).onMouseEvent(sender, e, 0, 0);
-            }
-
-            ConsoleMan.ConsoleTitle = e.Y.ToString();
-        }
-
-        #endregion
-
         #region Variables
 
         //Thread
@@ -219,7 +190,8 @@ namespace ConsoleLib
         public static void Add(Component c)
         {
             while (InLoop) ;
-            Components.Add(c.Name, c);
+            if(c != null && !Components.ContainsKey(c.Name))
+                Components.Add(c.Name, c);
         }
 
         /// <summary>
@@ -230,7 +202,8 @@ namespace ConsoleLib
         public static void Add(string componentName, Component c)
         {
             while (InLoop) ;
-            Components.Add(componentName, c);
+            if (!Components.ContainsKey(componentName))
+                Components.Add(componentName, c);
         }
 
         #endregion

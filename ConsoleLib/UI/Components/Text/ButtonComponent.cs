@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using ConsoleLib.UI.Modules;
 
-namespace ConsoleLib.UI.Components.Textbox
+namespace ConsoleLib.UI.Components.Text
 {
-    public class ButtonComponent : TextBoxComponent, IRenderable, ISelectable
+    public class ButtonComponent : TextComponent, IRenderable, ISelectable
     {
         public ButtonComponent(string Name, DrawableComponent drawInfo,
             IDrawableUnit SelectedColors, IDrawableUnit PressedColors,

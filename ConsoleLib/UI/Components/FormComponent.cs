@@ -45,12 +45,23 @@ namespace ConsoleLib.UI.Components
         /// <summary>
         /// Hides/removes all components from the ConsoleManager
         /// </summary>
-        public abstract void Hide();
+        public void Hide()
+        {
+            UnregisterComponent(this);
+            this._Hide();
+        }
 
         /// <summary>
         /// Shows/reregisters all componetns to the ConsoleManager
         /// </summary>
-        public abstract void Show();
+        public void Show()
+        {
+            RegisterComponent(this);
+            this._Show();
+        }
+
+        protected abstract void _Hide();
+        protected abstract void _Show();
 
 
 

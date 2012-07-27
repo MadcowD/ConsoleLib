@@ -229,67 +229,51 @@
             Updates the inherenting class.
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.WriteLine(System.Object,System.Object[])">
+        <member name="F:ConsoleLib.UI.Components.GroupComponent.Components">
             <summary>
-            Write an object with arguments to the stream. {2}, etc.
-            </summary>
-            <param name="toWrite">The Object to be written to the stream</param>
-            <param name="arg">The arguments for that object</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.WriteLine(System.Object)">
-            <summary>
-            Writes an object followed by a new line
-            </summary>
-            <param name="toWrite">The object to write</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Write(System.Object,System.Object[])">
-            <summary>
-            Write an object with arguments to the stream. {2}, etc.
-            </summary>
-            <param name="toWrite">The Object to be written to the stream</param>
-            <param name="arg">The arguments for that object</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Write(System.Object)">
-            <summary>
-            Writes and object to the stream
-            </summary>
-            <param name="toWrite">The object to write</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ClearOutput">
-            <summary>
-            Clear the output stream.
+            The Component container
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Read">
+        <member name="M:ConsoleLib.UI.Components.GroupComponent.Add(ConsoleLib.UI.Component)">
             <summary>
-            Reads a character from the console component
+            Adds a component using its inherent name.
             </summary>
-            <returns>The character read</returns>
+            <param name="c">The component to add.</param>
         </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ReadLine">
+        <member name="M:ConsoleLib.UI.Components.GroupComponent.Add(System.String,ConsoleLib.UI.Component)">
             <summary>
-            Reads a segment/string from input
+            Adds a component using a specified name.
             </summary>
-            <returns>The read string</returns>
+            <param name="componentName">The name under which the component will be.</param>
+            <param name="c">The component to add.</param>
         </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ReadInt(System.Int32@)">
+        <member name="M:ConsoleLib.UI.Components.GroupComponent.Remove(System.String)">
             <summary>
-            Attempts to read an Integer32
+            Removes a component using a specified name.
             </summary>
-            <param name="tryRead">The integer that will be read (may fail)</param>
-            <returns> Whether or not the parse was successful</returns>
+            <param name="name">The name of the component to be removed.</param>
+            <returns>Whether or not the component was removed (or even existed)</returns>
         </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.ReadDouble(System.Double@)">
+        <member name="M:ConsoleLib.UI.Components.GroupComponent.Remove(ConsoleLib.UI.Component)">
             <summary>
-            Attempts to read an doubleeger32
+            Removes a specified component using its name.
             </summary>
-            <param name="tryRead">The doubleeger that will be read (may fail)</param>
-            <returns> Whether or not the parse was successful</returns>
+            <param name="c">The component attempting to be removed.</param>
+            <returns>If the component was removed (or even existed)</returns>
         </member>
-        <member name="M:ConsoleLib.UI.Components.Textboxes.ConsoleComponent.Update">
+        <member name="M:ConsoleLib.UI.Components.GroupComponent.Get(System.String,ConsoleLib.UI.Component@)">
             <summary>
-            Updates the console
+            Gets a component specified by its name.
             </summary>
+            <param name="name">The name of the component to get.</param>
+            <param name="tryComponent">The possible gotten component</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.GroupComponent.Set(System.String,ConsoleLib.UI.Component)">
+            <summary>
+            Sets a component (or adds one if there is not one);
+            </summary>
+            <param name="name">The name of the component to set</param>
+            <param name="c">The new component</param>
         </member>
         <member name="T:ConsoleLib.Win32Console.SmallRect">
             <summary>
@@ -316,81 +300,67 @@
             The co-ordinate of the bottom point on the rectangle.
             </summary>
         </member>
-        <member name="M:ConsoleLib.Screen.Start">
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.WriteLine(System.Object,System.Object[])">
             <summary>
-            Starts execution of the screen thread
+            Write an object with arguments to the stream. {2}, etc.
+            </summary>
+            <param name="toWrite">The Object to be written to the stream</param>
+            <param name="arg">The arguments for that object</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.WriteLine(System.Object)">
+            <summary>
+            Writes an object followed by a new line
+            </summary>
+            <param name="toWrite">The object to write</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.Write(System.Object,System.Object[])">
+            <summary>
+            Write an object with arguments to the stream. {2}, etc.
+            </summary>
+            <param name="toWrite">The Object to be written to the stream</param>
+            <param name="arg">The arguments for that object</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.Write(System.Object)">
+            <summary>
+            Writes and object to the stream
+            </summary>
+            <param name="toWrite">The object to write</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.ClearOutput">
+            <summary>
+            Clear the output stream.
             </summary>
         </member>
-        <member name="M:ConsoleLib.Screen.Stop">
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.Read">
             <summary>
-            Stops execution of the screen thread.
+            Reads a character from the console component
             </summary>
+            <returns>The character read</returns>
         </member>
-        <member name="M:ConsoleLib.Screen.Run">
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.ReadLine">
             <summary>
-            Actual threading section
+            Reads a segment/string from input
             </summary>
+            <returns>The read string</returns>
         </member>
-        <member name="M:ConsoleLib.Screen.Update(ConsoleLib.UI.Component)">
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.ReadInt(System.Int32@)">
             <summary>
-            Update loop portion
+            Attempts to read an Integer32
             </summary>
+            <param name="tryRead">The integer that will be read (may fail)</param>
+            <returns> Whether or not the parse was successful</returns>
         </member>
-        <member name="M:ConsoleLib.Screen.Render(ConsoleLib.UI.Component)">
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.ReadDouble(System.Double@)">
             <summary>
-            Render loop portion
+            Attempts to read an doubleeger32
             </summary>
+            <param name="tryRead">The doubleeger that will be read (may fail)</param>
+            <returns> Whether or not the parse was successful</returns>
         </member>
-        <member name="F:ConsoleLib.Screen.Components">
+        <member name="M:ConsoleLib.UI.Components.Textbox.ConsoleComponent.Update">
             <summary>
-            The Component container
+            Updates the console
             </summary>
-        </member>
-        <member name="F:ConsoleLib.Screen.InLoop">
-            <summary>
-            Specifies whether or not it is safe to add components
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.Screen.Add(ConsoleLib.UI.Component)">
-            <summary>
-            Adds a component using its inherent name.
-            </summary>
-            <param name="c">The component to add.</param>
-        </member>
-        <member name="M:ConsoleLib.Screen.Add(System.String,ConsoleLib.UI.Component)">
-            <summary>
-            Adds a component using a specified name.
-            </summary>
-            <param name="componentName">The name under which the component will be.</param>
-            <param name="c">The component to add.</param>
-        </member>
-        <member name="M:ConsoleLib.Screen.Remove(System.String)">
-            <summary>
-            Removes a component using a specified name.
-            </summary>
-            <param name="name">The name of the component to be removed.</param>
-            <returns>Whether or not the component was removed (or even existed)</returns>
-        </member>
-        <member name="M:ConsoleLib.Screen.Remove(ConsoleLib.UI.Component)">
-            <summary>
-            Removes a specified component using its name.
-            </summary>
-            <param name="c">The component attempting to be removed.</param>
-            <returns>If the component was removed (or even existed)</returns>
-        </member>
-        <member name="M:ConsoleLib.Screen.Get(System.String,ConsoleLib.UI.Component@)">
-            <summary>
-            Gets a component specified by its name.
-            </summary>
-            <param name="name">The name of the component to get.</param>
-            <param name="tryComponent">The possible gotten component</param>
-        </member>
-        <member name="M:ConsoleLib.Screen.Set(System.String,ConsoleLib.UI.Component)">
-            <summary>
-            Sets a component (or adds one if there is not one);
-            </summary>
-            <param name="name">The name of the component to set</param>
-            <param name="c">The new component</param>
         </member>
         <member name="T:ConsoleLib.Win32Console.Coord">
             <summary>
@@ -546,6 +516,207 @@
         <member name="F:ConsoleLib.Win32Console.CharInfo.Attributes">
             <summary>
             The attributes of the character.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.ConsoleMan">
+            <summary>
+            The console manager.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Start">
+            <summary>
+            Starts execution of the screen thread
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Run">
+            <summary>
+            Actual threading section
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Stop">
+            <summary>
+            Stops execution of the screen thread.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Update(ConsoleLib.UI.Component)">
+            <summary>
+            Update loop portion
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Render(ConsoleLib.UI.Component)">
+            <summary>
+            Render loop portion
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.ConsoleMan.Components">
+            <summary>
+            The Component container
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.ConsoleMan.InLoop">
+            <summary>
+            Specifies whether or not it is safe to add components
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Add(ConsoleLib.UI.Component)">
+            <summary>
+            Adds a component using its inherent name.
+            </summary>
+            <param name="c">The component to add.</param>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Add(System.String,ConsoleLib.UI.Component)">
+            <summary>
+            Adds a component using a specified name.
+            </summary>
+            <param name="componentName">The name under which the component will be.</param>
+            <param name="c">The component to add.</param>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Remove(System.String)">
+            <summary>
+            Removes a component using a specified name.
+            </summary>
+            <param name="name">The name of the component to be removed.</param>
+            <returns>Whether or not the component was removed (or even existed)</returns>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Remove(ConsoleLib.UI.Component)">
+            <summary>
+            Removes a specified component using its name.
+            </summary>
+            <param name="c">The component attempting to be removed.</param>
+            <returns>If the component was removed (or even existed)</returns>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Get(System.String,ConsoleLib.UI.Component@)">
+            <summary>
+            Gets a component specified by its name.
+            </summary>
+            <param name="name">The name of the component to get.</param>
+            <param name="tryComponent">The possible gotten component</param>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.Set(System.String,ConsoleLib.UI.Component)">
+            <summary>
+            Sets a component (or adds one if there is not one);
+            </summary>
+            <param name="name">The name of the component to set</param>
+            <param name="c">The new component</param>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.SetWindowPos(System.Int32,System.Int32)">
+            <summary>
+            Sets the position of the console window
+            </summary>
+            <param name="x">The x position of the console.</param>
+            <param name="y">The y position of the console.</param>
+        </member>
+        <member name="M:ConsoleLib.ConsoleMan.GetWindowPos(System.Int32@,System.Int32@)">
+            <summary>
+            Gets the current top and left position of the console.
+            </summary>
+            <param name="x">The left position of the console.</param>
+            <param name="y">The top position of the console.</param>
+        </member>
+        <member name="T:ConsoleLib.KeyMan">
+            <summary>
+            Keyboard input manager for ConsoleLib.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.KeyMan.FreshInput">
+            <summary>
+            An internal boolean that specifies whether or not input
+            has been checked with TryGetKey previously.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.KeyMan.Running">
+            <summary>
+            Keeps the thread running
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.KeyMan.CurrentKey">
+            <summary>
+            The CurrentKey recieved from the run time loop.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.Start">
+            <summary>
+            Starts the KeyManager thread.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.Run">
+            <summary>
+            The main thread loop for input.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.Stop">
+            <summary>
+            Stops the main KeyManger thread.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.KeyMan.Focused">
+            <summary>
+            An internal boolean that specifies whether or not input is being focused.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.KeyMan.Foci">
+            <summary>
+            The list of foci to which the KeyManager will call when input is recieved.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.CallFoci">
+            <summary>
+            Updates all foci on new input recieved.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.Focus(ConsoleLib.UI.Modules.IHandlesKeyInput)">
+            <summary>
+            Adds a focus to the list of foci.
+            Focused objects are constantly notified when new input is added to
+            the stream.
+            </summary>
+            <param name="focus">The object to focus.</param>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.Unfocus">
+            <summary>
+            Unfocuses all foci in the manager, reverts input back to normal.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.TryGetKey(System.ConsoleKeyInfo@)">
+            <summary>
+            Attempts to get the current key.
+            </summary>
+            <param name="Key">The current key if exists.</param>
+            <returns>Whether or not the key was recieved.</returns>
+        </member>
+        <member name="M:ConsoleLib.KeyMan.GetLastKey">
+            <summary>
+            Gets the last key pressed regardless of focus.
+            </summary>
+            <returns>Returns the last key pressed.</returns>
+        </member>
+        <member name="F:ConsoleLib.MouseMan._proc">
+            <summary>
+            The delegate Mouse event
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.MouseMan._hookID">
+            <summary>
+            The id of the Mouse Event function
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.MouseMan.Start">
+            <summary>
+            Hooks mouse events to the mouse.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.MouseMan.MouseEventCallback(System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            The callback function which is called when a mouse event occurs.
+            </summary>
+            <param name="nCode"></param>
+            <param name="wParam"></param>
+            <param name="lParam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ConsoleLib.MouseMan.Stop">
+            <summary>
+            Unhooks mouse events.
             </summary>
         </member>
     </members>
