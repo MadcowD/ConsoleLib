@@ -55,6 +55,7 @@
     <Compile Include="UI\ComponentLoader.cs" />
     <Compile Include="UI\Components\FormComponent.cs" />
     <Compile Include="UI\Components\Forms\InteractableFormComponent.cs" />
+    <Compile Include="UI\Components\TextureComponent.cs" />
     <Compile Include="UI\Components\Text\ButtonComponent.cs" />
     <Compile Include="UI\Components\DrawableComponent.cs" />
     <Compile Include="UI\Modules\IHandlesKeyInput.cs" />
@@ -90,7 +91,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\Components\Textures\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

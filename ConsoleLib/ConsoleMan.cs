@@ -65,8 +65,9 @@ namespace ConsoleLib
             {
                 TickTime++;
                 InLoop = true;
-                foreach (Component c in Components.Values)
+                for(int i = 0; i < Components.Values.Count; i++)
                 {
+                    Component c = Components.Values.ElementAt(i);
                     lock (c)
                     {
                         Update(c);
@@ -126,7 +127,8 @@ namespace ConsoleLib
 
             SmallRect rect = new SmallRect() { Left = 0, Top = 0, Right = 80, Bottom = 25 }; //Create a rectangle for ConsoleWIndow
 
-            bool b = WriteConsoleOutput(h, Buffer,
+
+            bool b = WriteConsoleOutputW(h, Buffer,
                new Coord() { X = 80, Y = 25 },
                new Coord() { X = 0, Y = 0 },
                ref rect);
@@ -321,7 +323,7 @@ namespace ConsoleLib
             IntPtr template);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool WriteConsoleOutput(
+        public static extern bool WriteConsoleOutputW(
           SafeFileHandle hConsoleOutput,
           CharInfo[] lpBuffer,
           Coord dwBufferSize,
@@ -341,6 +343,18 @@ namespace ConsoleLib
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         public static extern IntPtr SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+        #endregion
+
+        #region SetConsoleOutputCP
+
+        /// <summary>
+        /// Sets the output codepage
+        /// </summary>
+        /// <param name="wCodePageID"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll")]
+        public static extern bool SetConsoleCP(uint wCodePageID);
+
         #endregion
 
         #endregion

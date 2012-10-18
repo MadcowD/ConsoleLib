@@ -20,7 +20,7 @@ namespace ConsoleLib.UI
         /// <param name="BackColor">The backcolor that the pixel will take on.</param>
         public Pixel(char Value, ConsoleColor ForeColor, ConsoleColor BackColor)
         {
-            this.Value = new Win32Console.CharInfo() { Char = { AsciiChar = (byte)Value, UnicodeChar = Value } };
+            this.Value = new Win32Console.CharInfo() { Char = { UnicodeChar = Value } };
             this.ForeColor = ForeColor;
             this.BackColor = BackColor;
         }
@@ -33,7 +33,7 @@ namespace ConsoleLib.UI
         /// <param name="SingleColor">The color</param>
         public Pixel(ConsoleColor SingleColor)
         {
-            this.Value = new Win32Console.CharInfo() { Char = { AsciiChar = (byte)' ', UnicodeChar = ' ' } };
+            this.Value = new Win32Console.CharInfo() { Char = {UnicodeChar = ' ' } };
             this.ForeColor = SingleColor;
             this.BackColor = SingleColor;
         }
@@ -43,7 +43,7 @@ namespace ConsoleLib.UI
         /// </summary>
         public Pixel()
         {
-            this.Value = new Win32Console.CharInfo() { Char = { AsciiChar = (byte)' ', UnicodeChar = ' ' } };
+            this.Value = new Win32Console.CharInfo() { Char = { UnicodeChar = ' ' } };
             this.ForeColor = ConsoleColor.Gray;
             this.BackColor = ConsoleColor.Black;
         }
@@ -83,7 +83,7 @@ namespace ConsoleLib.UI
                  *  Value.Attributes &  0x0040 = 0x814F;
                  *  Value.Attributes           = 0x814F;
                 */
-                Value = new CharInfo() { Attributes = (short)(Value.Attributes | ((short)value) << 4), Char = {AsciiChar = this.Value.Char.AsciiChar, UnicodeChar = this.Value.Char.UnicodeChar } };
+                Value = new CharInfo() { Attributes = (short)(Value.Attributes | ((short)value) << 4), Char = { UnicodeChar = this.Value.Char.UnicodeChar } };
             }
         }
 
@@ -102,7 +102,7 @@ namespace ConsoleLib.UI
             set
             {
                 //Sets only the last hexadecimal digit of Value.Attributes
-                Value = new CharInfo() { Attributes = (short)(Value.Attributes | (short)value), Char = { AsciiChar = this.Value.Char.AsciiChar, UnicodeChar = this.Value.Char.UnicodeChar } };
+                Value = new CharInfo() { Attributes = (short)(Value.Attributes | (short)value), Char = {UnicodeChar = this.Value.Char.UnicodeChar } };
 
             }
         }
@@ -117,7 +117,7 @@ namespace ConsoleLib.UI
         {
             Console.BackgroundColor = BackColor;
             Console.ForegroundColor = ForeColor;
-            Console.Write((char)Value.Char.AsciiChar);
+            Console.Write(Value.Char.UnicodeChar);
             Console.ResetColor();
         }
         /// <summary>
@@ -135,7 +135,7 @@ namespace ConsoleLib.UI
         /// <param name="set">The new unicode character to be set.</param>
         public void SetChar(char set)
         {
-            this.Value = new Win32Console.CharInfo() { Char = { AsciiChar = (byte)set, UnicodeChar = set }, Attributes = this.Value.Attributes};
+            this.Value = new Win32Console.CharInfo() { Char = {  UnicodeChar = set }, Attributes = this.Value.Attributes};
         }
 
         #endregion

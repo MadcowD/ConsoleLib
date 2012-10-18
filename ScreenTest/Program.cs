@@ -8,7 +8,7 @@ using ConsoleLib.UI.Components;
 using ConsoleLib.UI.Builders;
 using System.Threading;
 using System.Xml;
-using ConsoleLib.UI.Components.Textbox;
+using ConsoleLib.UI.Components.Text;
 using System.Windows.Forms;
 
 
@@ -23,7 +23,7 @@ namespace ScreenTest
             KeyMan.Start();
 
             ConsoleComponent console = new ConsoleComponent("Text1", DrawableComponentBuilder.MakeConsole());
-            TextBoxComponent text = new TextBoxComponent("CursorPosition", new
+            TextComponent text = new TextComponent("CursorPosition", new
                 DrawableComponent("CursorPosition", 20, 1, 20, 20, 0.0f));
 
             ConsoleMan.Add(console);
@@ -31,17 +31,21 @@ namespace ScreenTest
             ConsoleMan.Start();
             #endregion
 
+            Console.OutputEncoding = UTF32Encoding.UTF8;
+
             console.WriteLine("SHIT");
             string x = console.ReadLine();
             console.Write(x);
             while (true)
             {
 
-                text.Text = System.Windows.Forms.Cursor.Position.ToString();
+                text.Text = System.Windows.Forms.Cursor.Position.ToString() + "\u0627";
+
             }
 
             ConsoleMan.Stop();
             KeyMan.Stop();
+
             return;
 
         }

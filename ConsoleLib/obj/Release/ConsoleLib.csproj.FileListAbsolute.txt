@@ -1,0 +1,10 @@
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Release\ConsoleLib.dll
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Release\ConsoleLib.pdb
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Release\ConsoleLib.dll
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Release\ConsoleLib.pdb
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Release\ConsoleLib.csprojResolveAssemblyReference.cache
+C:\Users\wg203341\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Release\ConsoleLib.dll
+C:\Users\wg203341\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Release\ConsoleLib.pdb
+C:\Users\wg203341\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Release\ConsoleLib.csprojResolveAssemblyReference.cache
+C:\Users\wg203341\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Release\ConsoleLib.dll
+C:\Users\wg203341\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Release\ConsoleLib.pdb

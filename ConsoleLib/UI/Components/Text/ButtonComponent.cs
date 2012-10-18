@@ -25,10 +25,11 @@ namespace ConsoleLib.UI.Components.Text
         }
 
         #region Functioning Loop
-        public void Render(int TickTime)
+        public override void Render(int TickTime)
         {
             base.Render(TickTime);
             ComponentEditor.ModifyBoarders(this);
+
         }
         #endregion
 

@@ -21,10 +21,7 @@ namespace ConsoleLib.Win32Console
         [FieldOffset(0)]
         public char UnicodeChar;
 
-        /// <summary>
-        /// The specified ASCII character within the union.
-        /// </summary>
-        [FieldOffset(0)]
-        public byte AsciiChar;
+      
+
     }
 }

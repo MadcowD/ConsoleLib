@@ -106,7 +106,9 @@ namespace ConsoleLib.UI.Components.Text
             KeyMan.Focus(this);
             while (Reading) ; //Wait for user to enter input
             KeyMan.Unfocus();
+
             return In.ReadLine();
+
         }
 
         /// <summary>
@@ -139,7 +141,6 @@ namespace ConsoleLib.UI.Components.Text
         /// </summary>
         public void Update(int TickTime)
         {
-
             lock(Text)
                 Text = ConsoleText.ToString() + _CurrentInput;
         }
@@ -183,6 +184,7 @@ namespace ConsoleLib.UI.Components.Text
                     _CurrentInput += Key.KeyChar;
                     break;
             }
+
         }
 
         #endregion

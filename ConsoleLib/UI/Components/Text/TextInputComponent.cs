@@ -6,7 +6,7 @@ using ConsoleLib.UI.Modules;
 
 namespace ConsoleLib.UI.Components.Text
 {
-    class TextInputComponent : TextComponent, IHandlesKeyInput
+    public class TextInputComponent : TextComponent, IHandlesKeyInput//, ISelectable
     {
         /// <summary>
         /// The TextInput constructor
@@ -28,7 +28,7 @@ namespace ConsoleLib.UI.Components.Text
 
         #region Variables
 
-        delegate void stringCallBack(string CurrentInput);
+        public delegate void stringCallBack(string CurrentInput);
 
         private string _sCurrentInput;
         private stringCallBack _inputActionCallBack;
@@ -55,15 +55,19 @@ namespace ConsoleLib.UI.Components.Text
             if (Key.Key == ConsoleKey.Enter)
             {
                 _inputActionCallBack(_sCurrentInput);
+                KeyMan.Unfocus();
                 _sCurrentInput = "";
             }
             else if (Key.Key == ConsoleKey.Backspace)
             {
                 _sCurrentInput =
                      _sCurrentInput.Remove(_sCurrentInput.Length - 1);
+                
             }
             else
                 _sCurrentInput += Key.KeyChar;
+
+            Text = _sCurrentInput;
         }
 
         #endregion
