@@ -21,3 +21,10 @@ C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleL
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.dll
 C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.pdb
 C:\Users\wg203341\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.csprojResolveAssemblyReference.cache
+C:\Users\William\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.csprojResolveAssemblyReference.cache
+C:\Users\wg203341.SLCSD\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleLib.xml
+C:\Users\wg203341.SLCSD\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleLib.dll
+C:\Users\wg203341.SLCSD\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\bin\Debug\ConsoleLib.pdb
+C:\Users\wg203341.SLCSD\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.csprojResolveAssemblyReference.cache
+C:\Users\wg203341.SLCSD\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.dll
+C:\Users\wg203341.SLCSD\Dropbox\Dev\C#\Console\ConsoleLib\ConsoleLib\obj\Debug\ConsoleLib.pdb

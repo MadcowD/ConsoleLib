@@ -4,38 +4,121 @@
         <name>ConsoleLib</name>
     </assembly>
     <members>
-        <member name="T:ConsoleLib.UI.Modules.IUpdatable">
+        <member name="T:ConsoleLib.Win32Console.SmallRect">
             <summary>
-            The IUpdatable interfaces specifies any class which can be updated in a loop.
+            The win32 small rect class imported for managed use.
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Modules.IUpdatable.Update(System.Int32)">
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Left">
             <summary>
-            Updates the inherenting class.
-            </summary>
-            <param name="TickTime">The current ticktime of the loop</param>
-        </member>
-        <member name="T:ConsoleLib.UI.Modules.IScalable">
-            <summary>
-            Specifies any class that is scalable or has a size.
+            The co-ordinate of the left point on the rectangle.
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.Modules.IScalable.Scale(System.Int32,System.Int32)">
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Top">
             <summary>
-            Scale the object according to all of its other components
-            </summary>
-            <param name="newX">The new height</param>
-            <param name="newY">The new width</param>
-        </member>
-        <member name="P:ConsoleLib.UI.Modules.IScalable.SizeX">
-            <summary>
-            The width of the scalable class
+            The co-ordinate of the top point on the rectangle.
             </summary>
         </member>
-        <member name="P:ConsoleLib.UI.Modules.IScalable.SizeY">
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Right">
             <summary>
-            The height of the scalable class
+            The co-ordinate of the right point on the rectangle.
             </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.SmallRect.Bottom">
+            <summary>
+            The co-ordinate of the bottom point on the rectangle.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Pixel">
+            <summary>
+            Pixel class, the basic of all componets
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IDrawableUnit">
+            <summary>
+            Specifies any class that can be drawn
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IDrawableUnit.ManagedDraw">
+            <summary>
+            Draws the class using managed methods
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IDrawableUnit.SetChar(System.Char)">
+            <summary>
+            Sets the value in terms of a character.
+            </summary>
+            <param name="set">Sets the character value of the class.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.Value">
+            <summary>
+            The actual character value of the class.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.BackColor">
+            <summary>
+            The background color attribute of the class.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.ForeColor">
+            <summary>
+            The foregroung color attribute of the class.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.Char,System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Set the initial contents of the Pixel
+            </summary>
+            <param name="Value">The character that this Pixel represents</param>
+            <param name="ForeColor">The forecolor that the pixel will take on.</param>
+            <param name="BackColor">The backcolor that the pixel will take on.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.ConsoleColor)">
+            <summary>
+            A single color pixel with a ' ' char value
+            </summary>
+            <param name="SingleColor">The color</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.#ctor">
+            <summary>
+            Specifies the default Pixel.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.ManagedDraw">
+            <summary>
+            Prints the pixel to the console (NOT EFFICIENT)
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.ToString">
+            <summary>
+            Returns the literal char value of Pixel
+            </summary>
+            <returns>Writes the pixel to the screen</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Pixel.SetChar(System.Char)">
+            <summary>
+            Sets the value of the character.
+            </summary>
+            <param name="set">The new unicode character to be set.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.Value">
+            <summary>
+            The actual character value of the pixel.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.BackColor">
+            <summary>
+            Gets or sets the background Value.Attribute of the pixel through a ConsoleColor struct.
+            ConsoleColor is converted into the proper byte form.
+            </summary>
+            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
+        </member>
+        <member name="P:ConsoleLib.UI.Pixel.ForeColor">
+            <summary>
+            Gets or sets the foreground Value.Attribute of the pixel through a ConsoleColor struct.
+            ConsoleColor is converted into the proper byte form.
+            </summary>
+            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
         </member>
         <member name="T:ConsoleLib.Win32Console.HookManager.HookManager">
             <summary>
@@ -149,6 +232,92 @@
             to the active window. The window that receives the message can distinguish between 
             these two contexts by checking the context code in the lParam parameter. 
             </summary>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.OnMouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            This method is designed to monitor mouse clicks in order to fire a double click event if interval between 
+            clicks was short enaugh.
+            </summary>
+            <param name="sender">Is always null</param>
+            <param name="e">Some information about click heppened.</param>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_MouseDelegate">
+            <summary>
+            This field is not objectively needed but we need to keep a reference on a delegate which will be 
+            passed to unmanaged code. To avoid GC to clean it up.
+            When passing delegates to unmanaged code, they must be kept alive by the managed application 
+            until it is guaranteed that they will never be called.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_MouseHookHandle">
+            <summary>
+            Stores the handle to the mouse hook procedure.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.MouseHookProc(System.Int32,System.Int32,System.IntPtr)">
+            <summary>
+            A callback function which will be called every Time a mouse activity detected.
+            </summary>
+            <param name="nCode">
+            [in] Specifies whether the hook procedure must process the message. 
+            If nCode is HC_ACTION, the hook procedure must process the message. 
+            If nCode is less than zero, the hook procedure must pass the message to the 
+            CallNextHookEx function without further processing and must return the 
+            value returned by CallNextHookEx.
+            </param>
+            <param name="wParam">
+            [in] Specifies whether the message was sent by the current thread. 
+            If the message was sent by the current thread, it is nonzero; otherwise, it is zero. 
+            </param>
+            <param name="lParam">
+            [in] Pointer to a CWPSTRUCT structure that contains details about the message. 
+            </param>
+            <returns>
+            If nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx. 
+            If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx 
+            and return the value it returns; otherwise, other applications that have installed WH_CALLWNDPROC 
+            hooks will not receive hook notifications and may behave incorrectly as a result. If the hook 
+            procedure does not call CallNextHookEx, the return value should be zero. 
+            </returns>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_KeyboardDelegate">
+            <summary>
+            This field is not objectively needed but we need to keep a reference on a delegate which will be 
+            passed to unmanaged code. To avoid GC to clean it up.
+            When passing delegates to unmanaged code, they must be kept alive by the managed application 
+            until it is guaranteed that they will never be called.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_KeyboardHookHandle">
+            <summary>
+            Stores the handle to the Keyboard hook procedure.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.KeyboardHookProc(System.Int32,System.Int32,System.IntPtr)">
+            <summary>
+            A callback function which will be called every Time a keyboard activity detected.
+            </summary>
+            <param name="nCode">
+            [in] Specifies whether the hook procedure must process the message. 
+            If nCode is HC_ACTION, the hook procedure must process the message. 
+            If nCode is less than zero, the hook procedure must pass the message to the 
+            CallNextHookEx function without further processing and must return the 
+            value returned by CallNextHookEx.
+            </param>
+            <param name="wParam">
+            [in] Specifies whether the message was sent by the current thread. 
+            If the message was sent by the current thread, it is nonzero; otherwise, it is zero. 
+            </param>
+            <param name="lParam">
+            [in] Pointer to a CWPSTRUCT structure that contains details about the message. 
+            </param>
+            <returns>
+            If nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx. 
+            If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx 
+            and return the value it returns; otherwise, other applications that have installed WH_CALLWNDPROC 
+            hooks will not receive hook notifications and may behave incorrectly as a result. If the hook 
+            procedure does not call CallNextHookEx, the return value should be zero. 
+            </returns>
         </member>
         <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.CallNextHookEx(System.Int32,System.Int32,System.Int32,System.IntPtr)">
             <summary>
@@ -308,92 +477,6 @@
              </returns>
              <remarks>http://msdn.microsoft.com/en-us/library/ms646301.aspx</remarks>
         </member>
-        <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.OnMouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
-            <summary>
-            This method is designed to monitor mouse clicks in order to fire a double click event if interval between 
-            clicks was short enaugh.
-            </summary>
-            <param name="sender">Is always null</param>
-            <param name="e">Some information about click heppened.</param>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_MouseDelegate">
-            <summary>
-            This field is not objectively needed but we need to keep a reference on a delegate which will be 
-            passed to unmanaged code. To avoid GC to clean it up.
-            When passing delegates to unmanaged code, they must be kept alive by the managed application 
-            until it is guaranteed that they will never be called.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_MouseHookHandle">
-            <summary>
-            Stores the handle to the mouse hook procedure.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.MouseHookProc(System.Int32,System.Int32,System.IntPtr)">
-            <summary>
-            A callback function which will be called every Time a mouse activity detected.
-            </summary>
-            <param name="nCode">
-            [in] Specifies whether the hook procedure must process the message. 
-            If nCode is HC_ACTION, the hook procedure must process the message. 
-            If nCode is less than zero, the hook procedure must pass the message to the 
-            CallNextHookEx function without further processing and must return the 
-            value returned by CallNextHookEx.
-            </param>
-            <param name="wParam">
-            [in] Specifies whether the message was sent by the current thread. 
-            If the message was sent by the current thread, it is nonzero; otherwise, it is zero. 
-            </param>
-            <param name="lParam">
-            [in] Pointer to a CWPSTRUCT structure that contains details about the message. 
-            </param>
-            <returns>
-            If nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx. 
-            If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx 
-            and return the value it returns; otherwise, other applications that have installed WH_CALLWNDPROC 
-            hooks will not receive hook notifications and may behave incorrectly as a result. If the hook 
-            procedure does not call CallNextHookEx, the return value should be zero. 
-            </returns>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_KeyboardDelegate">
-            <summary>
-            This field is not objectively needed but we need to keep a reference on a delegate which will be 
-            passed to unmanaged code. To avoid GC to clean it up.
-            When passing delegates to unmanaged code, they must be kept alive by the managed application 
-            until it is guaranteed that they will never be called.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.HookManager.HookManager.s_KeyboardHookHandle">
-            <summary>
-            Stores the handle to the Keyboard hook procedure.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.Win32Console.HookManager.HookManager.KeyboardHookProc(System.Int32,System.Int32,System.IntPtr)">
-            <summary>
-            A callback function which will be called every Time a keyboard activity detected.
-            </summary>
-            <param name="nCode">
-            [in] Specifies whether the hook procedure must process the message. 
-            If nCode is HC_ACTION, the hook procedure must process the message. 
-            If nCode is less than zero, the hook procedure must pass the message to the 
-            CallNextHookEx function without further processing and must return the 
-            value returned by CallNextHookEx.
-            </param>
-            <param name="wParam">
-            [in] Specifies whether the message was sent by the current thread. 
-            If the message was sent by the current thread, it is nonzero; otherwise, it is zero. 
-            </param>
-            <param name="lParam">
-            [in] Pointer to a CWPSTRUCT structure that contains details about the message. 
-            </param>
-            <returns>
-            If nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx. 
-            If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx 
-            and return the value it returns; otherwise, other applications that have installed WH_CALLWNDPROC 
-            hooks will not receive hook notifications and may behave incorrectly as a result. If the hook 
-            procedure does not call CallNextHookEx, the return value should be zero. 
-            </returns>
-        </member>
         <member name="E:ConsoleLib.Win32Console.HookManager.HookManager.MouseMove">
             <summary>
             Occurs when the mouse pointer is moved. 
@@ -468,6 +551,38 @@
             <summary>
             Occurs when a key is preseed. 
             </summary>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.HookManager.HookManager.HookProc">
+            <summary>
+            The CallWndProc hook procedure is an application-defined or library-defined callback 
+            function used with the SetWindowsHookEx function. The HOOKPROC type defines a pointer 
+            to this callback function. CallWndProc is a placeholder for the application-defined 
+            or library-defined function name.
+            </summary>
+            <param name="nCode">
+            [in] Specifies whether the hook procedure must process the message. 
+            If nCode is HC_ACTION, the hook procedure must process the message. 
+            If nCode is less than zero, the hook procedure must pass the message to the 
+            CallNextHookEx function without further processing and must return the 
+            value returned by CallNextHookEx.
+            </param>
+            <param name="wParam">
+            [in] Specifies whether the message was sent by the current thread. 
+            If the message was sent by the current thread, it is nonzero; otherwise, it is zero. 
+            </param>
+            <param name="lParam">
+            [in] Pointer to a CWPSTRUCT structure that contains details about the message. 
+            </param>
+            <returns>
+            If nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx. 
+            If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx 
+            and return the value it returns; otherwise, other applications that have installed WH_CALLWNDPROC 
+            hooks will not receive hook notifications and may behave incorrectly as a result. If the hook 
+            procedure does not call CallNextHookEx, the return value should be zero. 
+            </returns>
+            <remarks>
+            http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winui/winui/windowsuserinterface/windowing/hooks/hookreference/hookfunctions/callwndproc.asp
+            </remarks>
         </member>
         <member name="T:ConsoleLib.Win32Console.HookManager.HookManager.Point">
             <summary>
@@ -565,37 +680,27 @@
             Specifies extra information associated with the message. 
             </summary>
         </member>
-        <member name="T:ConsoleLib.Win32Console.HookManager.HookManager.HookProc">
+        <member name="T:ConsoleLib.Win32Console.Coord">
             <summary>
-            The CallWndProc hook procedure is an application-defined or library-defined callback 
-            function used with the SetWindowsHookEx function. The HOOKPROC type defines a pointer 
-            to this callback function. CallWndProc is a placeholder for the application-defined 
-            or library-defined function name.
+            Win32 Coord struct imported for managed use.
             </summary>
-            <param name="nCode">
-            [in] Specifies whether the hook procedure must process the message. 
-            If nCode is HC_ACTION, the hook procedure must process the message. 
-            If nCode is less than zero, the hook procedure must pass the message to the 
-            CallNextHookEx function without further processing and must return the 
-            value returned by CallNextHookEx.
-            </param>
-            <param name="wParam">
-            [in] Specifies whether the message was sent by the current thread. 
-            If the message was sent by the current thread, it is nonzero; otherwise, it is zero. 
-            </param>
-            <param name="lParam">
-            [in] Pointer to a CWPSTRUCT structure that contains details about the message. 
-            </param>
-            <returns>
-            If nCode is less than zero, the hook procedure must return the value returned by CallNextHookEx. 
-            If nCode is greater than or equal to zero, it is highly recommended that you call CallNextHookEx 
-            and return the value it returns; otherwise, other applications that have installed WH_CALLWNDPROC 
-            hooks will not receive hook notifications and may behave incorrectly as a result. If the hook 
-            procedure does not call CallNextHookEx, the return value should be zero. 
-            </returns>
-            <remarks>
-            http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winui/winui/windowsuserinterface/windowing/hooks/hookreference/hookfunctions/callwndproc.asp
-            </remarks>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.Coord.X">
+            <summary>
+            The X Coordinate
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.Coord.Y">
+            <summary>
+            The Y Coordinate
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.Coord.#ctor(System.Int16,System.Int16)">
+            <summary>
+            Creates a new Coord under the specified parameters.
+            </summary>
+            <param name="X">The new X</param>
+            <param name="Y">The new Y</param>
         </member>
         <member name="T:ConsoleLib.UI.Modules.ITransformable">
             <summary>
@@ -612,6 +717,126 @@
             The Y coordinate
             </summary>
         </member>
+        <member name="T:ConsoleLib.UI.Modules.IRenderable">
+            <summary>
+            Specifies any class that is rederable in a loop
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IRenderable.Render(System.Int32)">
+            <summary>
+            Renders the class accordingly with its own components
+            </summary>
+            <param name="TickTime">The current ticktime of the loop</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.FormComponent.RegisterComponent(ConsoleLib.UI.Component)">
+            <summary>
+            Registers the components herein contained.
+            </summary>
+            <param name="component">The component to be registered.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.FormComponent.UnregisterComponent(ConsoleLib.UI.Component)">
+            <summary>
+            Unregisters a component.
+            </summary>
+            <param name="component"></param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.FormComponent.Hide">
+            <summary>
+            Hides/removes all components from the ConsoleManager
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.FormComponent.Show">
+            <summary>
+            Shows/reregisters all componetns to the ConsoleManager
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.Forms.InteractableFormComponent._registeredSelectableComponents">
+            <summary>
+            The list of selectable components
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.Forms.InteractableFormComponent._selectedComponent">
+            <summary>
+            Represents the current selected component
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.Forms.InteractableFormComponent._iIndex">
+            <summary>
+            The current index that the _selected component is located at within the list;
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.RegisterComponent(ConsoleLib.UI.Component)">
+            <summary>
+            Registers the components herein contained.
+            </summary>
+            <param name="component">The component to be registered.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.UnregisterComponent(ConsoleLib.UI.Component)">
+            <summary>
+            Unregisters a component.
+            </summary>
+            <param name="component">The component to attempt to unregister</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.SelectNextComponent">
+            <summary>
+            Selects the next selectable component in the form.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.PressSelectedComponent">
+            <summary>
+            Presses the current selected component
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IScalable">
+            <summary>
+            Specifies any class that is scalable or has a size.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IScalable.Scale(System.Int32,System.Int32)">
+            <summary>
+            Scale the object according to all of its other components
+            </summary>
+            <param name="newX">The new height</param>
+            <param name="newY">The new width</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IScalable.SizeX">
+            <summary>
+            The width of the scalable class
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Modules.IScalable.SizeY">
+            <summary>
+            The height of the scalable class
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.IDrawable">
+            <summary>
+            Specifies any class that is drawable
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.IDrawable.Draw(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:],System.Int32,System.Int32)">
+            <summary>
+            Draws the class to a buffer.
+            </summary>
+            <param name="buffer">The specific buffer to which the class will be drawn</param>
+            <param name="Height">The height of the specified buffer.</param>
+            <param name="Width">The width of the specified buffer.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.IDrawable.DrawEnabled">
+            <summary>
+            If drawing is enabled.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.IDrawable.Transparent">
+            <summary>
+            If true, null characters shan't be drawn.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.IDrawable.Contents">
+            <summary>
+            The drawable contents of the class.
+            </summary>
+        </member>
         <member name="T:ConsoleLib.UI.Modules.IRotatable">
             <summary>
             Specifies any class that can rotate.
@@ -626,6 +851,165 @@
         <member name="P:ConsoleLib.UI.Modules.IRotatable.Rotation">
             <summary>
             The rotation of that class.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.DrawableComponent.CalculateRotation">
+            <summary>
+            Calculates an output buffer of IDrawableUnit
+            based on the DrawableComponent's current rotation.
+            
+            This function uses the formula:
+             * x' = xcos(degrees) - ysin(degrees)
+             * y' = xsin(degrees) + ycos(degrees)
+            to find specific output points on a rotated buffer.
+            
+             1. Rotation occurs in the center,
+             2. Rotated points which are outside of the original
+                buffer's size are clipped.
+             3. The buffer does not scale.
+            </summary>
+            <returns>The function returns a rotated version of
+            DrawableComponent.Contents.</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.DrawableComponent.Scale(System.Int32,System.Int32)">
+            <summary>
+            Scales the current DrawableComponent to a new size
+            whilst maintaing content which should not be clipped.
+            </summary>
+            <param name="newX">The new unsigned width.</param>
+            <param name="newY">The new unsigned height.</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.DrawableComponent.Draw(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:],System.Int32,System.Int32)">
+            <summary>
+            Draws the specified component to a IDrawableUnit[,] buffer.
+            </summary>
+            <param name="Buffer">The buffer to which the method will draw.</param>
+            <param name="Height">The height of the buffer to be drawn to.</param>
+            <param name="Width">The width of the buffer to be drawn to.</param>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.DrawEnabled">
+            <summary>
+            Whether or not drawing is enabled.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Transparent">
+            <summary>
+            The transparent property of a 
+            drawable component determines whether
+            or not null IDrawableUnits should be
+            drawn.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Background">
+            <summary>
+            The default background pixel to draw
+            if transparency is off
+            and a null pixel is being drawn.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Foreground">
+            <summary>
+            The default foregound pixel to draw.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Contents">
+            <summary>
+            The contents of the DrawableComponent.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.X">
+            <summary>
+            The X coordinate of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Y">
+            <summary>
+            The Y coordinate of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.SizeX">
+            <summary>
+            The width of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.SizeY">
+            <summary>
+            The height of the component.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Rotation">
+            <summary>
+            The rotation in float degrees of the component.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Modules.IPrintable">
+            <summary>
+            Specifies any class that can be printed through managed methods.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Modules.IPrintable.Print(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:])">
+            <summary>
+            Prints the class
+            </summary>
+            <param name="DrawThis"></param>
+        </member>
+        <member name="T:ConsoleLib.UI.Components.TextComponent">
+            <summary>
+            A TextComponent with which text can be displayed to the Screen.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.TextComponent._Text">
+            <summary>
+            The instantiated variable containing the raw text.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.UI.Components.TextComponent._VisibleText">
+            <summary>
+            The calculated visual text with which will be displayed in the textbox. SEE SCROLL.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.TextComponent.Scroll">
+            <summary>
+            Calculates the visual range that is going to be displayed if the text is larger than the visible area.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.TextComponent.Text">
+            <summary>
+            The text containted within the textbox.
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.TextComponent.ScrollPosition">
+            <summary>
+            The position with which the visible area is determined
+            </summary>
+        </member>
+        <member name="P:ConsoleLib.UI.Components.TextComponent.AutoScroll">
+            <summary>
+            If the Scroll Position should be automatically determined at the end of the Text.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.TextInputComponent.#ctor(System.String,ConsoleLib.UI.Components.DrawableComponent,ConsoleLib.UI.Components.Text.TextInputComponent.stringCallBack)">
+            <summary>
+            The TextInput constructor
+            </summary>
+            <param name="name">name of the component</param>
+            <param name="drawInfo">Drawing info about the text component</param>
+            <param name="inputActionCallBack">The function to be called whence enter is pressed.</param>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.CharInfo">
+            <summary>
+            Character information (char + atttributes) imported from Win32
+            for managed use.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.CharInfo.Char">
+            <summary>
+            The CharUnion containing the actual character.
+            </summary>
+        </member>
+        <member name="F:ConsoleLib.Win32Console.CharInfo.Attributes">
+            <summary>
+            The attributes of the character.
             </summary>
         </member>
         <member name="T:ConsoleLib.ConsoleMan">
@@ -730,176 +1114,16 @@
             <param name="wCodePageID"></param>
             <returns></returns>
         </member>
-        <member name="T:ConsoleLib.UI.IDrawable">
+        <member name="T:ConsoleLib.UI.Modules.IUpdatable">
             <summary>
-            Specifies any class that is drawable
+            The IUpdatable interfaces specifies any class which can be updated in a loop.
             </summary>
         </member>
-        <member name="M:ConsoleLib.UI.IDrawable.Draw(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:],System.Int32,System.Int32)">
+        <member name="M:ConsoleLib.UI.Modules.IUpdatable.Update(System.Int32)">
             <summary>
-            Draws the class to a buffer.
-            </summary>
-            <param name="buffer">The specific buffer to which the class will be drawn</param>
-            <param name="Height">The height of the specified buffer.</param>
-            <param name="Width">The width of the specified buffer.</param>
-        </member>
-        <member name="P:ConsoleLib.UI.IDrawable.DrawEnabled">
-            <summary>
-            If drawing is enabled.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.IDrawable.Transparent">
-            <summary>
-            If true, null characters shan't be drawn.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.IDrawable.Contents">
-            <summary>
-            The drawable contents of the class.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.DrawableComponent.CalculateRotation">
-            <summary>
-            Calculates an output buffer of IDrawableUnit
-            based on the DrawableComponent's current rotation.
-            
-            This function uses the formula:
-             * x' = xcos(degrees) - ysin(degrees)
-             * y' = xsin(degrees) + ycos(degrees)
-            to find specific output points on a rotated buffer.
-            
-             1. Rotation occurs in the center,
-             2. Rotated points which are outside of the original
-                buffer's size are clipped.
-             3. The buffer does not scale.
-            </summary>
-            <returns>The function returns a rotated version of
-            DrawableComponent.Contents.</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.DrawableComponent.Scale(System.Int32,System.Int32)">
-            <summary>
-            Scales the current DrawableComponent to a new size
-            whilst maintaing content which should not be clipped.
-            </summary>
-            <param name="newX">The new unsigned width.</param>
-            <param name="newY">The new unsigned height.</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.DrawableComponent.Draw(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:],System.Int32,System.Int32)">
-            <summary>
-            Draws the specified component to a IDrawableUnit[,] buffer.
-            </summary>
-            <param name="Buffer">The buffer to which the method will draw.</param>
-            <param name="Height">The height of the buffer to be drawn to.</param>
-            <param name="Width">The width of the buffer to be drawn to.</param>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.DrawEnabled">
-            <summary>
-            Whether or not drawing is enabled.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Transparent">
-            <summary>
-            The transparent property of a 
-            drawable component determines whether
-            or not null IDrawableUnits should be
-            drawn.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Background">
-            <summary>
-            The default background pixel to draw
-            if transparency is off
-            and a null pixel is being drawn.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Foreground">
-            <summary>
-            The default foregound pixel to draw.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Contents">
-            <summary>
-            The contents of the DrawableComponent.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.X">
-            <summary>
-            The X coordinate of the component.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Y">
-            <summary>
-            The Y coordinate of the component.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.SizeX">
-            <summary>
-            The width of the component.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.SizeY">
-            <summary>
-            The height of the component.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.DrawableComponent.Rotation">
-            <summary>
-            The rotation in float degrees of the component.
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.UI.Components.TextComponent">
-            <summary>
-            A TextComponent with which text can be displayed to the Screen.
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.UI.Modules.IRenderable">
-            <summary>
-            Specifies any class that is rederable in a loop
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Modules.IRenderable.Render(System.Int32)">
-            <summary>
-            Renders the class accordingly with its own components
+            Updates the inherenting class.
             </summary>
             <param name="TickTime">The current ticktime of the loop</param>
-        </member>
-        <member name="F:ConsoleLib.UI.Components.TextComponent._Text">
-            <summary>
-            The instantiated variable containing the raw text.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.UI.Components.TextComponent._VisibleText">
-            <summary>
-            The calculated visual text with which will be displayed in the textbox. SEE SCROLL.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.TextComponent.Scroll">
-            <summary>
-            Calculates the visual range that is going to be displayed if the text is larger than the visible area.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.TextComponent.Text">
-            <summary>
-            The text containted within the textbox.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.TextComponent.ScrollPosition">
-            <summary>
-            The position with which the visible area is determined
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Components.TextComponent.AutoScroll">
-            <summary>
-            If the Scroll Position should be automatically determined at the end of the Text.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.TextInputComponent.#ctor(System.String,ConsoleLib.UI.Components.DrawableComponent,ConsoleLib.UI.Components.Text.TextInputComponent.stringCallBack)">
-            <summary>
-            The TextInput constructor
-            </summary>
-            <param name="name">name of the component</param>
-            <param name="drawInfo">Drawing info about the text component</param>
-            <param name="inputActionCallBack">The function to be called whence enter is pressed.</param>
         </member>
         <member name="T:ConsoleLib.Win32Console.CharUnion">
             <summary>
@@ -910,6 +1134,114 @@
         <member name="F:ConsoleLib.Win32Console.CharUnion.UnicodeChar">
             <summary>
             The specified unicode character within the union.
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.UI.Components.TextureComponent">
+            <summary>
+            Base texture component class
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.TextureComponent.Load(System.String)">
+            <summary>
+            Loads a texture from a file
+            </summary>
+            <param name="filename">The file from which to get the texture</param>
+            <returns>If it loaded the texture correctly</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.TextureComponent.Save(System.String)">
+            <summary>
+            Saves the texture to a file
+            </summary>
+            <param name="filename">The specified file to which the texture will be saved</param>
+            <returns></returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.WriteLine(System.Object,System.Object[])">
+            <summary>
+            Write an object with arguments to the stream. {2}, etc.
+            </summary>
+            <param name="toWrite">The Object to be written to the stream</param>
+            <param name="arg">The arguments for that object</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.WriteLine(System.Object)">
+            <summary>
+            Writes an object followed by a new line
+            </summary>
+            <param name="toWrite">The object to write</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Write(System.Object,System.Object[])">
+            <summary>
+            Write an object with arguments to the stream. {2}, etc.
+            </summary>
+            <param name="toWrite">The Object to be written to the stream</param>
+            <param name="arg">The arguments for that object</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Write(System.Object)">
+            <summary>
+            Writes and object to the stream
+            </summary>
+            <param name="toWrite">The object to write</param>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ClearOutput">
+            <summary>
+            Clear the output stream.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Read">
+            <summary>
+            Reads a character from the console component
+            </summary>
+            <returns>The character read</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ReadLine">
+            <summary>
+            Reads a segment/string from input
+            </summary>
+            <returns>The read string</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ReadInt(System.Int32@)">
+            <summary>
+            Attempts to read an Integer32
+            </summary>
+            <param name="tryRead">The integer that will be read (may fail)</param>
+            <returns> Whether or not the parse was successful</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ReadDouble(System.Double@)">
+            <summary>
+            Attempts to read an doubleeger32
+            </summary>
+            <param name="tryRead">The doubleeger that will be read (may fail)</param>
+            <returns> Whether or not the parse was successful</returns>
+        </member>
+        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Update(System.Int32)">
+            <summary>
+            Updates the console
+            </summary>
+        </member>
+        <member name="T:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs">
+            <summary>
+            Provides data for the MouseClickExt and MouseMoveExt events. It also provides a property Handled.
+            Set this property to <b>true</b> to prevent further processing of the event in other applications.
+            </summary>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs.#ctor(System.Windows.Forms.MouseButtons,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the MouseEventArgs class. 
+            </summary>
+            <param name="buttons">One of the MouseButtons values indicating which mouse button was pressed.</param>
+            <param name="clicks">The number of times a mouse button was pressed.</param>
+            <param name="x">The x-coordinate of a mouse click, in pixels.</param>
+            <param name="y">The y-coordinate of a mouse click, in pixels.</param>
+            <param name="delta">A signed count of the number of detents the wheel has rotated.</param>
+        </member>
+        <member name="M:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs.#ctor(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Initializes a new instance of the MouseEventArgs class. 
+            </summary>
+            <param name="e">An ordinary <see cref="T:System.Windows.Forms.MouseEventArgs"/> argument to be extended.</param>
+        </member>
+        <member name="P:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs.Handled">
+            <summary>
+            Set this property to <b>true</b> inside your event handler to prevent further processing of the event in other applications.
             </summary>
         </member>
         <member name="T:ConsoleLib.KeyMan">
@@ -987,338 +1319,6 @@
             Gets the last key pressed regardless of focus.
             </summary>
             <returns>Returns the last key pressed.</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.FormComponent.RegisterComponent(ConsoleLib.UI.Component)">
-            <summary>
-            Registers the components herein contained.
-            </summary>
-            <param name="component">The component to be registered.</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.FormComponent.UnregisterComponent(ConsoleLib.UI.Component)">
-            <summary>
-            Unregisters a component.
-            </summary>
-            <param name="component"></param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.FormComponent.Hide">
-            <summary>
-            Hides/removes all components from the ConsoleManager
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.FormComponent.Show">
-            <summary>
-            Shows/reregisters all componetns to the ConsoleManager
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.UI.Components.Forms.InteractableFormComponent._registeredSelectableComponents">
-            <summary>
-            The list of selectable components
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.UI.Components.Forms.InteractableFormComponent._selectedComponent">
-            <summary>
-            Represents the current selected component
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.UI.Components.Forms.InteractableFormComponent._iIndex">
-            <summary>
-            The current index that the _selected component is located at within the list;
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.RegisterComponent(ConsoleLib.UI.Component)">
-            <summary>
-            Registers the components herein contained.
-            </summary>
-            <param name="component">The component to be registered.</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.UnregisterComponent(ConsoleLib.UI.Component)">
-            <summary>
-            Unregisters a component.
-            </summary>
-            <param name="component">The component to attempt to unregister</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.SelectNextComponent">
-            <summary>
-            Selects the next selectable component in the form.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Forms.InteractableFormComponent.PressSelectedComponent">
-            <summary>
-            Presses the current selected component
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.Win32Console.SmallRect">
-            <summary>
-            The win32 small rect class imported for managed use.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.SmallRect.Left">
-            <summary>
-            The co-ordinate of the left point on the rectangle.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.SmallRect.Top">
-            <summary>
-            The co-ordinate of the top point on the rectangle.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.SmallRect.Right">
-            <summary>
-            The co-ordinate of the right point on the rectangle.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.SmallRect.Bottom">
-            <summary>
-            The co-ordinate of the bottom point on the rectangle.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.WriteLine(System.Object,System.Object[])">
-            <summary>
-            Write an object with arguments to the stream. {2}, etc.
-            </summary>
-            <param name="toWrite">The Object to be written to the stream</param>
-            <param name="arg">The arguments for that object</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.WriteLine(System.Object)">
-            <summary>
-            Writes an object followed by a new line
-            </summary>
-            <param name="toWrite">The object to write</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Write(System.Object,System.Object[])">
-            <summary>
-            Write an object with arguments to the stream. {2}, etc.
-            </summary>
-            <param name="toWrite">The Object to be written to the stream</param>
-            <param name="arg">The arguments for that object</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Write(System.Object)">
-            <summary>
-            Writes and object to the stream
-            </summary>
-            <param name="toWrite">The object to write</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ClearOutput">
-            <summary>
-            Clear the output stream.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Read">
-            <summary>
-            Reads a character from the console component
-            </summary>
-            <returns>The character read</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ReadLine">
-            <summary>
-            Reads a segment/string from input
-            </summary>
-            <returns>The read string</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ReadInt(System.Int32@)">
-            <summary>
-            Attempts to read an Integer32
-            </summary>
-            <param name="tryRead">The integer that will be read (may fail)</param>
-            <returns> Whether or not the parse was successful</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.ReadDouble(System.Double@)">
-            <summary>
-            Attempts to read an doubleeger32
-            </summary>
-            <param name="tryRead">The doubleeger that will be read (may fail)</param>
-            <returns> Whether or not the parse was successful</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.Text.ConsoleComponent.Update(System.Int32)">
-            <summary>
-            Updates the console
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.Win32Console.Coord">
-            <summary>
-            Win32 Coord struct imported for managed use.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.Coord.X">
-            <summary>
-            The X Coordinate
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.Coord.Y">
-            <summary>
-            The Y Coordinate
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.Win32Console.Coord.#ctor(System.Int16,System.Int16)">
-            <summary>
-            Creates a new Coord under the specified parameters.
-            </summary>
-            <param name="X">The new X</param>
-            <param name="Y">The new Y</param>
-        </member>
-        <member name="T:ConsoleLib.UI.Modules.IPrintable">
-            <summary>
-            Specifies any class that can be printed through managed methods.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Modules.IPrintable.Print(ConsoleLib.UI.Modules.IDrawableUnit[0:,0:])">
-            <summary>
-            Prints the class
-            </summary>
-            <param name="DrawThis"></param>
-        </member>
-        <member name="T:ConsoleLib.UI.Components.TextureComponent">
-            <summary>
-            Base texture component class
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.TextureComponent.Load(System.String)">
-            <summary>
-            Loads a texture from a file
-            </summary>
-            <param name="filename">The file from which to get the texture</param>
-            <returns>If it loaded the texture correctly</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Components.TextureComponent.Save(System.String)">
-            <summary>
-            Saves the texture to a file
-            </summary>
-            <param name="filename">The specified file to which the texture will be saved</param>
-            <returns></returns>
-        </member>
-        <member name="T:ConsoleLib.Win32Console.CharInfo">
-            <summary>
-            Character information (char + atttributes) imported from Win32
-            for managed use.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.CharInfo.Char">
-            <summary>
-            The CharUnion containing the actual character.
-            </summary>
-        </member>
-        <member name="F:ConsoleLib.Win32Console.CharInfo.Attributes">
-            <summary>
-            The attributes of the character.
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs">
-            <summary>
-            Provides data for the MouseClickExt and MouseMoveExt events. It also provides a property Handled.
-            Set this property to <b>true</b> to prevent further processing of the event in other applications.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs.#ctor(System.Windows.Forms.MouseButtons,System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Initializes a new instance of the MouseEventArgs class. 
-            </summary>
-            <param name="buttons">One of the MouseButtons values indicating which mouse button was pressed.</param>
-            <param name="clicks">The number of times a mouse button was pressed.</param>
-            <param name="x">The x-coordinate of a mouse click, in pixels.</param>
-            <param name="y">The y-coordinate of a mouse click, in pixels.</param>
-            <param name="delta">A signed count of the number of detents the wheel has rotated.</param>
-        </member>
-        <member name="M:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs.#ctor(System.Windows.Forms.MouseEventArgs)">
-            <summary>
-            Initializes a new instance of the MouseEventArgs class. 
-            </summary>
-            <param name="e">An ordinary <see cref="T:System.Windows.Forms.MouseEventArgs"/> argument to be extended.</param>
-        </member>
-        <member name="P:ConsoleLib.Win32Console.HookManager.MouseEventExtArgs.Handled">
-            <summary>
-            Set this property to <b>true</b> inside your event handler to prevent further processing of the event in other applications.
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.UI.Pixel">
-            <summary>
-            Pixel class, the basic of all componets
-            </summary>
-        </member>
-        <member name="T:ConsoleLib.UI.Modules.IDrawableUnit">
-            <summary>
-            Specifies any class that can be drawn
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Modules.IDrawableUnit.ManagedDraw">
-            <summary>
-            Draws the class using managed methods
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Modules.IDrawableUnit.SetChar(System.Char)">
-            <summary>
-            Sets the value in terms of a character.
-            </summary>
-            <param name="set">Sets the character value of the class.</param>
-        </member>
-        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.Value">
-            <summary>
-            The actual character value of the class.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.BackColor">
-            <summary>
-            The background color attribute of the class.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Modules.IDrawableUnit.ForeColor">
-            <summary>
-            The foregroung color attribute of the class.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.Char,System.ConsoleColor,System.ConsoleColor)">
-            <summary>
-            Set the initial contents of the Pixel
-            </summary>
-            <param name="Value">The character that this Pixel represents</param>
-            <param name="ForeColor">The forecolor that the pixel will take on.</param>
-            <param name="BackColor">The backcolor that the pixel will take on.</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.#ctor(System.ConsoleColor)">
-            <summary>
-            A single color pixel with a ' ' char value
-            </summary>
-            <param name="SingleColor">The color</param>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.#ctor">
-            <summary>
-            Specifies the default Pixel.
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.ManagedDraw">
-            <summary>
-            Prints the pixel to the console (NOT EFFICIENT)
-            </summary>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.ToString">
-            <summary>
-            Returns the literal char value of Pixel
-            </summary>
-            <returns>Writes the pixel to the screen</returns>
-        </member>
-        <member name="M:ConsoleLib.UI.Pixel.SetChar(System.Char)">
-            <summary>
-            Sets the value of the character.
-            </summary>
-            <param name="set">The new unicode character to be set.</param>
-        </member>
-        <member name="P:ConsoleLib.UI.Pixel.Value">
-            <summary>
-            The actual character value of the pixel.
-            </summary>
-        </member>
-        <member name="P:ConsoleLib.UI.Pixel.BackColor">
-            <summary>
-            Gets or sets the background Value.Attribute of the pixel through a ConsoleColor struct.
-            ConsoleColor is converted into the proper byte form.
-            </summary>
-            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
-        </member>
-        <member name="P:ConsoleLib.UI.Pixel.ForeColor">
-            <summary>
-            Gets or sets the foreground Value.Attribute of the pixel through a ConsoleColor struct.
-            ConsoleColor is converted into the proper byte form.
-            </summary>
-            <seealso cref="T:ConsoleLib.Win32Console.CharInfo"/>
         </member>
     </members>
 </doc>
